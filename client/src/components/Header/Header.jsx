@@ -1,18 +1,20 @@
+// src/components/Header/Header.jsx
 import './Header.css';
+import { Link } from 'react-router-dom'; // 1. IMPORTA LINK
 
 function Header() {
   return (
     <header>
       <div>
-        {/* Aquí irá el logo en el futuro */}
         <h2>MiFerretería</h2>
       </div>
       <nav>
         <ul>
-          <li><a href="/">Inicio</a></li>
-          <li><a href="/tienda">Tienda</a></li>
-          <li><a href="/servicios">Servicios</a></li>
-          <li><a href="/contacto">Contacto</a></li>
+          {/* 2. REEMPLAZA <a> POR <Link> y href POR to */}
+          <li><Link to="/">Inicio</Link></li>
+          <li><Link to="/tienda">Tienda</Link></li>
+          <li><Link to="/servicios">Servicios</Link></li>
+          <li><Link to="/contacto">Contacto</Link></li>
         </ul>
       </nav>
     </header>

@@ -1,14 +1,23 @@
 // src/App.jsx
-import Header from './components/Header/Header'
-import Footer from './components/Footer/Footer'
+import { Routes, Route } from 'react-router-dom';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
+import Inicio from './pages/Inicio';
+import Tienda from './pages/Tienda';
+import Servicios from './pages/Servicios';
+import Contacto from './pages/Contacto';
 
 function App() {
   return (
     <>
       <Header />
       <main>
-        {/* El contenido de cada página (Inicio, Tienda, etc.) irá aquí */}
-        <h2>Contenido Principal</h2>
+        <Routes>
+          <Route path="/" element={<Inicio />} />
+          <Route path="/tienda" element={<Tienda />} />
+          <Route path="/servicios" element={<Servicios />} />
+          <Route path="/contacto" element={<Contacto />} />
+        </Routes>
       </main>
       <Footer />
     </>
