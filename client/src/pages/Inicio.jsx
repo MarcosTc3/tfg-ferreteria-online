@@ -1,10 +1,15 @@
 // src/pages/Inicio.jsx
+import Hero from '../components/Hero/Hero';
+import KeyServices from '../components/KeyServices/KeyServices';
+
 function Inicio() {
   return (
-    <div>
-      <h2>Página de Inicio</h2>
-      {/* Aquí construiremos la página principal como en la foto */}
-    </div>
+    <>
+      <Hero />
+      <KeyServices />
+      {/* Aquí debajo añadiremos más secciones en el futuro, como el banner */}
+    </>
   );
 }
+
 export default Inicio;

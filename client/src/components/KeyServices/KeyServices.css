@@ -1,0 +1,30 @@
+/* src/components/KeyServices/KeyServices.css */
+.keyservices-container {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 3rem 2rem;
+  background-color: #f8f9fa; /* Un gris muy claro de fondo */
+}
+
+.service-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.service-icon-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%; /* Esto crea el círculo */
+  background-color: #004a99; /* Un azul oscuro como el del ejemplo */
+  margin-bottom: 1rem;
+  /* En el futuro, usaremos display:flex para centrar el icono dentro */
+}
+
+.service-title {
+  font-size: 1rem;
+  color: #333;
+  font-weight: bold;
+}

@@ -1,0 +1,19 @@
+/* src/components/Hero/Hero.css */
+.hero-container {
+  padding: 4rem 2rem;
+  text-align: center;
+  background-color: #ffffff;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: #e3001b; /* Un rojo similar al del ejemplo */
+  font-weight: bold;
+}

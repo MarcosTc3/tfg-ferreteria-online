@@ -1,12 +1,76 @@
 /* src/components/Header/Header.css */
 
+/* Contenedor principal del header y la navegación */
+.header-wrapper {
+  border-bottom: 1px solid #dee2e6;
+}
+
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 1.5rem 2rem;
+  background-color: #ffffff;
+}
+
+.logo-container h2 {
+  margin: 0;
+  color: #e3001b; /* Rojo corporativo */
+  font-size: 1.8rem;
+}
+
+.logo-container a {
+  text-decoration: none;
+}
+
+.search-container {
+  flex-grow: 1; /* Hace que ocupe el espacio disponible */
+  display: flex;
+  justify-content: center;
+  padding: 0 2rem;
+}
+
+.search-container input {
+  width: 100%;
+  max-width: 500px; /* Ancho máximo de la barra */
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-right: none;
+  border-radius: 5px 0 0 5px;
+  font-size: 1rem;
+}
+
+.search-container button {
+  padding: 0.75rem 1rem;
+  border: 1px solid #e3001b;
+  background-color: #e3001b;
+  color: white;
+  cursor: pointer;
+  border-radius: 0 5px 5px 0;
+}
+
+.cart-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cart-container span {
+  font-size: 1.5rem;
+}
+
+.cart-container p {
+  margin: 0;
+  font-weight: bold;
+}
+
+/* Barra de navegación de abajo */
+nav {
+  display: flex;
+  justify-content: center; /* Centramos los links */
   background-color: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
+  padding: 0.5rem 2rem;
+  border-top: 1px solid #dee2e6;
 }
 
 nav ul {
@@ -14,16 +78,17 @@ nav ul {
   display: flex;
   margin: 0;
   padding: 0;
-  gap: 1.5rem; /* Espacio entre los elementos del menú */
+  gap: 2rem; /* Aumentamos el espacio */
 }
 
 nav a {
   text-decoration: none;
   color: #333;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.9rem; /* Un poco más pequeño */
+  text-transform: uppercase; /* En mayúsculas, como en el ejemplo */
 }
 
 nav a:hover {
-  color: #007bff;
+  color: #e3001b;
 }
