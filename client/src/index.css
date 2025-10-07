@@ -24,10 +24,14 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: #f8f9fa; /* Damos un color de fondo base a toda la web */
+}
+
+.container {
+  max-width: 1200px; /* Ancho máximo del contenido */
+  margin: 0 auto;   /* Esto centra el contenedor horizontalmente */
+  padding: 0 1rem;   /* Un pequeño espacio a los lados para que el texto no se pegue a los bordes en móviles */
 }
 
 h1 {

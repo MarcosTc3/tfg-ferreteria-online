@@ -12,12 +12,15 @@ function App() {
     <>
       <Header />
       <main>
-        <Routes>
-          <Route path="/" element={<Inicio />} />
-          <Route path="/tienda" element={<Tienda />} />
-          <Route path="/servicios" element={<Servicios />} />
-          <Route path="/contacto" element={<Contacto />} />
-        </Routes>
+        {/* Aplicamos la clase container aquí */}
+        <div className="container">
+          <Routes>
+            <Route path="/" element={<Inicio />} />
+            <Route path="/tienda" element={<Tienda />} />
+            <Route path="/servicios" element={<Servicios />} />
+            <Route path="/contacto" element={<Contacto />} />
+          </Routes>
+        </div>
       </main>
       <Footer />
     </>

@@ -4,7 +4,8 @@ import './KeyServices.css';
 function KeyServices() {
   return (
     <section className="keyservices-container">
-      <div className="service-item">
+      <div className="container">
+              <div className="service-item">
         <div className="service-icon-circle">
           {/* Aquí irá un icono SVG o una imagen */}
         </div>
@@ -23,6 +24,7 @@ function KeyServices() {
           {/* Aquí irá un icono SVG o una imagen */}
         </div>
         <h3 className="service-title">ASESORAMIENTO PERSONALIZADO</h3>
+      </div>
       </div>
     </section>
   );

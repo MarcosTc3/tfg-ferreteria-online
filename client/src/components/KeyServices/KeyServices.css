@@ -7,6 +7,18 @@
   background-color: #f8f9fa; /* Un gris muy claro de fondo */
 }
 
+.keyservices-section {
+  padding: 3rem 0; /* Ajustamos el padding */
+  background-color: #f8f9fa;
+}
+
+/* El contenedor de los items ahora está dentro de la clase .container */
+.keyservices-section .container {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+}
+
 .service-item {
   display: flex;
   flex-direction: column;
@@ -28,3 +40,16 @@
   color: #333;
   font-weight: bold;
 }
+
+@media (max-width: 768px) {
+  .keyservices-section .container {
+    flex-direction: column; /* Apila los elementos verticalmente */
+    align-items: center;   /* Los centra en el nuevo eje vertical */
+    gap: 2rem;             /* Reduce el espacio entre ellos */
+  }
+
+  .service-icon-circle {
+    width: 100px; /* Hacemos los círculos un poco más pequeños */
+    height: 100px;
+  }
+} 
