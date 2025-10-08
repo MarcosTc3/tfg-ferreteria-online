@@ -1,0 +1,71 @@
+.promo-banner-section {
+  /* Aquí se carga la imagen desde la carpeta public */
+  background-image: url('/banner-background.jpg');
+  background-size: cover; /* Hace que la imagen cubra todo el espacio */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat;
+  padding: 6rem 0;
+  position: relative; /* Necesario para la capa oscura */
+  color: white; /* Color del texto por defecto */
+}
+
+/* Capa oscura semitransparente sobre la imagen para mejorar la legibilidad del texto */
+.promo-banner-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Negro con 50% de opacidad */
+}
+
+/* El contenedor del contenido debe estar por encima de la capa oscura */
+.promo-banner-section .container {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.promo-title {
+  font-size: 2.8rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.promo-subtitle {
+  font-size: 1.5rem;
+  margin: 0.5rem 0 1.5rem 0;
+}
+
+.promo-button {
+  background-color: #e3001b; /* Rojo corporativo */
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.promo-button:hover {
+  background-color: #c40017; /* Un rojo un poco más oscuro al pasar el ratón */
+}
+
+/* ---- ESTILOS PARA MÓVILES ---- */
+@media (max-width: 768px) {
+  .promo-title {
+    font-size: 2rem;
+  }
+
+  .promo-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .promo-banner-section {
+    padding: 4rem 0;
+  }
+}
