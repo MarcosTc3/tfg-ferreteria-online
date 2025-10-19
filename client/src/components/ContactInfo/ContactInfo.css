@@ -9,6 +9,11 @@
 .contact-info-container h3 {
   margin-top: 0;
   font-size: 1.5rem;
+  color: #333; /* Color más oscuro para el título */
+}
+
+.contact-info-container p {
+  color: #555; /* Color más oscuro para el párrafo */
 }
 
 .info-list {
@@ -19,9 +24,10 @@
 
 .info-list li {
   display: flex;
-  align-items: flex-start; /* Alineamos al inicio para el horario */
+  align-items: flex-start;
   margin-bottom: 1rem;
   font-size: 1rem;
+  color: #333; /* Color principal del texto */
 }
 
 .info-icon {
@@ -29,10 +35,9 @@
   font-size: 1.2rem;
   margin-right: 1rem;
   min-width: 20px;
-  margin-top: 4px; /* Pequeño ajuste vertical */
+  margin-top: 4px;
 }
 
-/* --- NUEVOS ESTILOS PARA HORARIO --- */
 .horario-details {
   display: flex;
   flex-direction: column;
@@ -40,9 +45,10 @@
 
 .horario-details strong {
   margin-bottom: 0.25rem;
+  color: #333;
 }
 
 .horario-details span {
   line-height: 1.5;
+  color: #555; /* Un gris un poco más claro para el horario */
 }
-/* --- FIN DE NUEVOS ESTILOS --- */

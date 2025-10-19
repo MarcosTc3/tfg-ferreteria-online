@@ -5,6 +5,12 @@
   padding: 1rem 0;
   border-bottom: 1px solid #e0e0e0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  /* --- NUEVOS ESTILOS PARA HEADER FIJO --- */
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Asegura que esté por encima de otros contenidos */
 }
 
 .header-container {
@@ -17,11 +23,10 @@
   max-height: 60px;
 }
 
-/* --- NUEVO ESTILO PARA EL CONTENEDOR DERECHO --- */
 .header-right {
   display: flex;
   align-items: center;
-  gap: 2.5rem; /* Espacio entre la navegación y el carrito */
+  gap: 2.5rem;
 }
 
 .main-navigation ul {
@@ -60,7 +65,6 @@
   background-color: #e3001b;
 }
 
-/* --- ESTILOS PARA EL CARRITO --- */
 .header-cart-container {
   position: relative;
 }

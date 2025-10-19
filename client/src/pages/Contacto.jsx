@@ -5,10 +5,11 @@ import ContactInfo from '../components/ContactInfo/ContactInfo';
 import ContactForm from '../components/ContactForm/ContactForm';
 
 function Contacto() {
-  // URL para buscar la dirección en Google Maps
-  const mapsUrl = "https://www.google.com/maps/search/?api=1&query=Calle+Ficticia+123+Fuenlabrada+Madrid";
-  // URL para incrustar el mapa (embed)
-  const embedUrl = "https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Fuenlabrada"; // NOTA: Para producción se necesita una API Key de Google. Usamos una URL genérica para desarrollo.
+  // URL para buscar la dirección en Google Maps (para el enlace)
+  const mapsUrl = "https://www.google.com/maps/search/?api=1&query=Plaza+Valdeserrano+9+Fuenlabrada+Madrid";
+
+  // URL para incrustar el mapa (para el iframe)
+  const embedUrl = "https://maps.google.com/maps?q=Plaza%20Valdeserrano%209%20Fuenlabrada&t=&z=17&ie=UTF8&iwloc=&output=embed";
 
   return (
     <div className="contact-page">
@@ -22,10 +23,9 @@ function Contacto() {
         <ContactForm />
 
         <div className="map-container">
-          {/* Al hacer clic, se abrirá Google Maps en una nueva pestaña */}
           <a href={mapsUrl} target="_blank" rel="noopener noreferrer" title="Ver en Google Maps">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24341.2291539207!2d-3.816922865234372!3d40.28424599999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd418b3417e65179%3A0x29641b08d3d9396f!2sFuenlabrada%2C%20Madrid!5e0!3m2!1ses!2ses!4v1678886400000!5m2!1ses!2ses"
+              src={embedUrl}
               allowFullScreen=""
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
