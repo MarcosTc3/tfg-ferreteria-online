@@ -5,12 +5,10 @@
   padding: 1rem 0;
   border-bottom: 1px solid #e0e0e0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-
-  /* --- NUEVOS ESTILOS PARA HEADER FIJO --- */
   position: sticky;
   top: 0;
   left: 0;
-  z-index: 1000; /* Asegura que esté por encima de otros contenidos */
+  z-index: 1000;
 }
 
 .header-container {
@@ -51,10 +49,7 @@
   color: #e3001b;
 }
 
-.main-navigation a.active {
-  color: #333;
-}
-
+.main-navigation a.active { color: #333; }
 .main-navigation a.active::after {
   content: '';
   position: absolute;
@@ -65,10 +60,7 @@
   background-color: #e3001b;
 }
 
-.header-cart-container {
-  position: relative;
-}
-
+.header-cart-container { position: relative; }
 .cart-icon-link {
   position: relative;
   font-size: 1.5rem;
@@ -95,16 +87,89 @@
   position: absolute;
   top: 100%;
   right: 0;
-  z-index: 1000;
+  z-index: 1001;
   padding-top: 1rem;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
   transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
 }
-
 .header-cart-container:hover .cart-preview-wrapper {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+}
+
+.menu-toggle { display: none; } /* Oculto por defecto en escritorio */
+.mobile-menu-header { display: none; }
+
+/* ---- AQUI EMPIEZA LA MAGIA DEL RESPONSIVE ---- */
+@media (max-width: 992px) {
+  .header-right {
+    gap: 1.5rem; /* Reducimos espacio entre carrito y menú */
+  }
+
+  .menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+  }
+
+  .main-navigation {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100vh;
+    background-color: white;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    transform: translateX(100%); /* Oculto fuera de la pantalla */
+    transition: transform 0.3s ease-in-out;
+    z-index: 2000;
+  }
+
+  .main-navigation.nav-open {
+    transform: translateX(0); /* Lo hacemos visible */
+  }
+
+  .main-navigation ul {
+    flex-direction: column; /* Apilamos los enlaces verticalmente */
+    gap: 0;
+    padding-top: 2rem;
+  }
+
+  .main-navigation a {
+    display: block;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .main-navigation a.active::after {
+    display: none; /* Quitamos el subrayado en móvil */
+  }
+  .main-navigation a.active {
+    background-color: #f8f9fa; /* Resaltamos el enlace activo */
+    color: #e3001b;
+  }
+
+  .mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #e0e0e0;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  
+  .close-menu-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
 }
