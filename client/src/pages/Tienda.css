@@ -14,31 +14,31 @@
 .shop-header h1 {
   font-size: 2.5rem;
   margin: 0;
+  color: #333; /* <-- AÑADIDO */
+}
+
+.shop-header p {
+  color: #555; /* <-- AÑADIDO */
 }
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columnas por defecto */
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
 }
 
-/* ---- RESPONSIVE PARA LA CUADRÍCULA ---- */
-
-/* Para tablets y portátiles pequeños */
 @media (max-width: 1024px) {
   .product-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* Para tablets en vertical */
 @media (max-width: 768px) {
   .product-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Para móviles */
 @media (max-width: 480px) {
   .product-grid {
     grid-template-columns: 1fr;

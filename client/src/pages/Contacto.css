@@ -8,20 +8,25 @@
 .contact-page-header h1 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
+  color: #333; /* <-- AÑADIDO */
+}
+
+.contact-page-header p {
+  color: #555; /* <-- AÑADIDO */
 }
 
 .contact-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
-  gap: 2rem; /* Espacio entre las columnas */
-  padding: 0 2rem 3rem 2rem; /* Espaciado general de la página */
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 0 2rem 3rem 2rem;
 }
 
 .map-container {
   margin-top: 2rem;
   border-radius: 8px;
-  overflow: hidden; /* Para que el mapa respete el borde redondeado */
-  grid-column: 1 / -1; /* Ocupa todas las columnas */
+  overflow: hidden;
+  grid-column: 1 / -1;
 }
 
 .map-container iframe {
@@ -30,9 +35,8 @@
   border: 0;
 }
 
-/* ---- ESTILOS PARA MÓVILES Y TABLETS ---- */
 @media (max-width: 992px) {
   .contact-layout {
-    grid-template-columns: 1fr; /* Una sola columna */
+    grid-template-columns: 1fr;
   }
 }

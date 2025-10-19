@@ -1,9 +1,11 @@
 // src/components/ProductCard/ProductCard.jsx
 
 import './ProductCard.css';
+import { useCart } from '../../context/CartContext'; // 1. Importamos el hook useCart
 
-// El componente recibe un objeto 'product' con toda la información
 function ProductCard({ product }) {
+  const { addToCart } = useCart(); // 2. Obtenemos la función addToCart del contexto
+
   return (
     <div className="product-card">
       <div className="product-image-container">
@@ -14,7 +16,10 @@ function ProductCard({ product }) {
         <h3 className="product-name">{product.name}</h3>
         <p className="product-price">{product.price.toFixed(2)} €</p>
       </div>
-      <button className="add-to-cart-btn">Añadir al carrito</button>
+      {/* 3. Al hacer clic, llamamos a la función addToCart con el producto actual */}
+      <button className="add-to-cart-btn" onClick={() => addToCart(product)}>
+        Añadir al carrito
+      </button>
     </div>
   );
 }

@@ -1,0 +1,96 @@
+/* src/components/CartPreview/CartPreview.css */
+.cart-preview {
+  width: 350px;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.empty-cart-message {
+  padding: 2rem;
+  text-align: center;
+  color: #777;
+}
+
+.cart-preview-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.cart-preview-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cart-preview-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-right: 1rem;
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+}
+
+.item-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.item-quantity-price {
+  color: #777;
+}
+
+.cart-preview-footer {
+  padding: 1rem;
+}
+
+.subtotal {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.cart-preview-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.cart-preview-buttons a {
+  flex: 1;
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background-color: #e3001b;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #c40017;
+}
+
+.btn-secondary {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.btn-secondary:hover {
+  background-color: #ddd;
+}
