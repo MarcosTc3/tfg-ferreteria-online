@@ -1,79 +1,108 @@
-/* src/components/ContactForm/ContactForm.css */
+// src/components/ContactForm/ContactForm.jsx
 
-.contact-form-container {
-  padding: 2rem;
-  background-color: #ffffff;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
+import { useState } from 'react';
+import './ContactForm.css';
+
+function ContactForm() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const validateForm = () => {
+    let formErrors = {};
+    if (!formData.name) formErrors.name = "El nombre es obligatorio.";
+    if (!formData.email) {
+      formErrors.email = "El email es obligatorio.";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      formErrors.email = "El formato del email no es válido.";
+    }
+    if (!formData.subject) formErrors.subject = "El asunto es obligatorio.";
+    if (!formData.message) formErrors.message = "El mensaje es obligatorio.";
+    
+    return formErrors;
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formErrors = validateForm();
+    if (Object.keys(formErrors).length === 0) {
+      alert('Formulario enviado (simulación). ¡Gracias por contactar!');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setErrors({});
+    } else {
+      setErrors(formErrors);
+    }
+  };
+
+  return (
+    <div className="contact-form-container">
+      <h3>Envíanos un Mensaje</h3>
+      <form onSubmit={handleSubmit} noValidate>
+        <div className="form-group">
+          <label htmlFor="name">Nombre Completo</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            className={errors.name ? 'input-error' : ''}
+          />
+          {errors.name && <span className="error-text">{errors.name}</span>}
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">Correo Electrónico</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className={errors.email ? 'input-error' : ''}
+          />
+          {errors.email && <span className="error-text">{errors.email}</span>}
+        </div>
+        <div className="form-group">
+          <label htmlFor="subject">Asunto</label>
+          <input
+            type="text"
+            id="subject"
+            name="subject"
+            value={formData.subject}
+            onChange={handleChange}
+            className={errors.subject ? 'input-error' : ''}
+          />
+          {errors.subject && <span className="error-text">{errors.subject}</span>}
+        </div>
+        <div className="form-group">
+          <label htmlFor="message">Mensaje</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="6"
+            value={formData.message}
+            onChange={handleChange}
+            className={errors.message ? 'input-error' : ''}
+          ></textarea>
+          {errors.message && <span className="error-text">{errors.message}</span>}
+        </div>
+        <button type="submit" className="submit-button">Enviar Mensaje</button>
+      </form>
+    </div>
+  );
 }
 
-.contact-form-container h3 {
-  margin-top: 0;
-  font-size: 1.5rem;
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-  position: relative; /* Para posicionar el mensaje de error */
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-  color: #333;
-}
-
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1rem;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: #004a99;
-  box-shadow: 0 0 5px rgba(0, 74, 153, 0.2);
-}
-
-/* --- NUEVOS ESTILOS PARA ERRORES --- */
-.input-error {
-  border-color: #e3001b; /* Borde rojo si hay error */
-}
-
-.input-error:focus {
-  border-color: #e3001b;
-  box-shadow: 0 0 5px rgba(227, 0, 27, 0.2);
-}
-
-.error-text {
-  color: #e3001b;
-  font-size: 0.875rem;
-  padding-top: 4px;
-  display: block;
-}
-/* --- FIN DE NUEVOS ESTILOS --- */
-
-.submit-button {
-  width: 100%;
-  background-color: #e3001b;
-  color: white;
-  border: none;
-  padding: 1rem;
-  font-size: 1rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.submit-button:hover {
-  background-color: #c40017;
-}
+export default ContactForm;

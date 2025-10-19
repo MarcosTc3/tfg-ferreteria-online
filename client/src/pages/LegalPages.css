@@ -1,0 +1,38 @@
+/* src/pages/LegalPages.css */
+
+.legal-page-container {
+  padding: 4rem 1rem; /* Espaciado superior e inferior */
+  max-width: 900px; /* Un ancho más cómodo para leer texto largo */
+  margin: 0 auto;
+}
+
+.legal-page-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #333;
+}
+
+.legal-page-container h2 {
+  font-size: 1.5rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 0.5rem;
+}
+
+.legal-page-container p,
+.legal-page-container li {
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.legal-page-container ul {
+  padding-left: 20px;
+}
+
+.legal-page-container strong {
+  color: #333;
+}

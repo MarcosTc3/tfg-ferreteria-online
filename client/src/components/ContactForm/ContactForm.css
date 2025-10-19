@@ -14,7 +14,7 @@
 
 .form-group {
   margin-bottom: 1.5rem;
-  position: relative; /* Para posicionar el mensaje de error */
+  position: relative;
 }
 
 .form-group label {
@@ -42,9 +42,8 @@
   box-shadow: 0 0 5px rgba(0, 74, 153, 0.2);
 }
 
-/* --- NUEVOS ESTILOS PARA ERRORES --- */
 .input-error {
-  border-color: #e3001b; /* Borde rojo si hay error */
+  border-color: #e3001b;
 }
 
 .input-error:focus {
@@ -58,7 +57,6 @@
   padding-top: 4px;
   display: block;
 }
-/* --- FIN DE NUEVOS ESTILOS --- */
 
 .submit-button {
   width: 100%;
