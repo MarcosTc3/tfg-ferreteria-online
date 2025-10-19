@@ -1,72 +1,70 @@
+/* src/index.css */
+
+/* Importa la fuente de Google Fonts (si estás usándola) */
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'); */
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: light dark; /* Puedes comentar esto si no lo necesitas */
+  color: #333333; /* Color de texto por defecto para toda la app */
+  background-color: #f0f2f5; /* Color de fondo general de la app (gris muy claro) */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: #f8f9fa; /* Damos un color de fondo base a toda la web */
+  min-width: 320px;
+  min-height: 100vh;
+  /* Asegura que el color de fondo y el de texto se apliquen globalmente */
+  background-color: var(--background-color);
+  color: var(--color);
 }
 
-.container {
-  max-width: 1200px; /* Ancho máximo del contenido */
-  margin: 0 auto;   /* Esto centra el contenedor horizontalmente */
-  padding: 0 1rem;   /* Un pequeño espacio a los lados para que el texto no se pegue a los bordes en móviles */
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+/* Estilos globales para enlaces */
+a {
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+  color: #007bff; /* Un color azul para enlaces por defecto */
+  text-decoration: none;
 }
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+a:hover {
+  color: #0056b3;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* Contenedor genérico para centrar contenido */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Para que el main ocupe el espacio restante */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex-grow: 1; /* Esto hace que el main ocupe todo el espacio disponible */
+  /* No definimos un background-color aquí, para que herede de body */
+}
+
+/* Estilos básicos para headings (pueden ser sobrescritos por componentes) */
+h1, h2, h3, h4, h5, h6 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
 }

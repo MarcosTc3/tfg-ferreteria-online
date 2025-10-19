@@ -8,9 +8,10 @@ import Contacto from './pages/Contacto';
 import QuienesSomos from './pages/QuienesSomos';
 import PoliticaPrivacidad from './pages/PoliticaPrivacidad';
 import AvisoLegal from './pages/AvisoLegal';
-
-// 1. Importa la nueva página de Servicios
 import Servicios from './pages/Servicios';
+
+// 1. Importa la nueva página de Carrito
+import Carrito from './pages/Carrito';
 
 function App() {
   return (
@@ -20,12 +21,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="/tienda" element={<Tienda />} />
-          {/* 2. Añade la ruta para Servicios */}
           <Route path="/servicios" element={<Servicios />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/quienes-somos" element={<QuienesSomos />} />
           <Route path="/politica-privacidad" element={<PoliticaPrivacidad />} />
           <Route path="/aviso-legal" element={<AvisoLegal />} />
+
+          {/* 2. Añade la ruta para Carrito */}
+          <Route path="/carrito" element={<Carrito />} />
         </Routes>
       </main>
       <Footer />

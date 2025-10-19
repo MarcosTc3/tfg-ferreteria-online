@@ -2,25 +2,18 @@
 
 import { createContext, useState, useContext } from 'react';
 
-// 1. Creamos el Contexto. Es como el almacén de datos.
 const CartContext = createContext();
 
-// 2. Creamos una función helper para usar el contexto más fácilmente.
 export const useCart = () => {
   return useContext(CartContext);
 };
 
-// 3. Creamos el Proveedor del Contexto. Este componente envolverá nuestra app.
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
-  // Función para añadir productos al carrito
   const addToCart = (product) => {
-    // Buscamos si el producto ya está en el carrito
     const existingItem = cartItems.find((item) => item.id === product.id);
-
     if (existingItem) {
-      // Si ya existe, solo aumentamos la cantidad
       setCartItems(
         cartItems.map((item) =>
           item.id === product.id
@@ -29,16 +22,30 @@ export const CartProvider = ({ children }) => {
         )
       );
     } else {
-      // Si es nuevo, lo añadimos con cantidad 1
       setCartItems([...cartItems, { ...product, quantity: 1 }]);
     }
   };
 
-  // Aquí añadiremos más funciones en el futuro (removeFromCart, clearCart, etc.)
+  const removeFromCart = (productId) => {
+    setCartItems(cartItems.filter((item) => item.id !== productId));
+  };
 
-  // 4. Proveemos los datos (el array de items y la función para añadir) a los componentes hijos.
+  // --- FUNCIÓN MODIFICADA ---
+  const updateItemQuantity = (productId, newQuantity) => {
+    // Aseguramos que la nueva cantidad no sea menor que 1
+    if (newQuantity < 1) {
+      newQuantity = 1; // Si intentan bajar de 1, la dejamos en 1.
+    }
+
+    setCartItems(
+      cartItems.map((item) =>
+        item.id === productId ? { ...item, quantity: newQuantity } : item
+      )
+    );
+  };
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateItemQuantity }}>
       {children}
     </CartContext.Provider>
   );
