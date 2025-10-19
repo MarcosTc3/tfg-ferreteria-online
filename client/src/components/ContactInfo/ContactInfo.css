@@ -19,14 +19,30 @@
 
 .info-list li {
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* Alineamos al inicio para el horario */
   margin-bottom: 1rem;
   font-size: 1rem;
 }
 
 .info-icon {
-  color: #e3001b; /* Rojo corporativo */
+  color: #e3001b;
   font-size: 1.2rem;
   margin-right: 1rem;
-  min-width: 20px; /* Ancho mínimo para alinear el texto */
+  min-width: 20px;
+  margin-top: 4px; /* Pequeño ajuste vertical */
 }
+
+/* --- NUEVOS ESTILOS PARA HORARIO --- */
+.horario-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.horario-details strong {
+  margin-bottom: 0.25rem;
+}
+
+.horario-details span {
+  line-height: 1.5;
+}
+/* --- FIN DE NUEVOS ESTILOS --- */

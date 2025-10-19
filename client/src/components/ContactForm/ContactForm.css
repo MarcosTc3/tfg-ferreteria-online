@@ -14,6 +14,7 @@
 
 .form-group {
   margin-bottom: 1.5rem;
+  position: relative; /* Para posicionar el mensaje de error */
 }
 
 .form-group label {
@@ -30,15 +31,34 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
-  box-sizing: border-box; /* Asegura que el padding no afecte al ancho total */
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #004a99; /* Azul al seleccionar */
+  border-color: #004a99;
   box-shadow: 0 0 5px rgba(0, 74, 153, 0.2);
 }
+
+/* --- NUEVOS ESTILOS PARA ERRORES --- */
+.input-error {
+  border-color: #e3001b; /* Borde rojo si hay error */
+}
+
+.input-error:focus {
+  border-color: #e3001b;
+  box-shadow: 0 0 5px rgba(227, 0, 27, 0.2);
+}
+
+.error-text {
+  color: #e3001b;
+  font-size: 0.875rem;
+  padding-top: 4px;
+  display: block;
+}
+/* --- FIN DE NUEVOS ESTILOS --- */
 
 .submit-button {
   width: 100%;

@@ -1,7 +1,7 @@
 // src/components/ContactInfo/ContactInfo.jsx
 
 import './ContactInfo.css';
-import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock } from 'react-icons/fa'; // Importamos los iconos
+import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock } from 'react-icons/fa';
 
 function ContactInfo() {
   return (
@@ -21,9 +21,14 @@ function ContactInfo() {
           <FaEnvelope className="info-icon" />
           <span>contacto@miferreteria.com</span>
         </li>
-        <li>
+        <li className="horario-item">
           <FaClock className="info-icon" />
-          <span>Lunes a Viernes: 9:00 - 20:00</span>
+          <div className="horario-details">
+            <strong>Horario de Apertura</strong>
+            <span>Lunes a Viernes: 9:00 - 14:00 y 16:00 - 20:00</span>
+            <span>Sábados: 10:00 - 14:00</span>
+            <span>Domingos: Cerrado</span>
+          </div>
         </li>
       </ul>
     </div>
