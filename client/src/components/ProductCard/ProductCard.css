@@ -1,0 +1,81 @@
+/* src/components/ProductCard/ProductCard.css */
+
+.product-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.product-image-container {
+  width: 100%;
+  padding-top: 100%; /* Proporción 1:1 para la imagen */
+  position: relative;
+  background-color: #f8f9fa;
+}
+
+.product-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* 'contain' para que se vea todo el producto sin cortar */
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.product-info {
+  padding: 1rem;
+  flex-grow: 1; /* Empuja el botón hacia abajo */
+  text-align: left;
+}
+
+.product-category {
+  font-size: 0.75rem;
+  color: #777;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem 0;
+}
+
+.product-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 0.5rem 0;
+  min-height: 48px; /* Espacio para 2-3 líneas de texto */
+}
+
+.product-price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #e3001b; /* Rojo corporativo */
+  margin: 0;
+}
+
+.add-to-cart-btn {
+  width: calc(100% - 2rem);
+  margin: 0 1rem 1rem 1rem;
+  background-color: #004a99; /* Azul oscuro */
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #003366; /* Azul más oscuro */
+}
