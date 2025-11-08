@@ -1,0 +1,21 @@
+###
+
+### Iniciar Sesión (Login) - Contraseña Incorrecta
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "marcos-fuerte@correo.com",
+  "password": "PasswordIncorrecta"
+}
+
+###
+
+### Iniciar Sesión (Login) - ÉXITO
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "marcos-fuerte@correo.com",
+  "password": "Password123"
+}

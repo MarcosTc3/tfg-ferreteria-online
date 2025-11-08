@@ -20,8 +20,8 @@ function Header() {
     if (totalItems > prevTotalItems.current) {
       setIsAnimating(true);
       
-      // Duración de la nueva animación (400ms)
-      const timer = setTimeout(() => setIsAnimating(false), 400); 
+      // Ajustamos el tiempo para que coincida con la nueva animación de 300ms
+      const timer = setTimeout(() => setIsAnimating(false), 300); 
       return () => clearTimeout(timer);
     }
     prevTotalItems.current = totalItems;
@@ -55,8 +55,8 @@ function Header() {
           </nav>
 
           <div className="header-cart-container">
-            {/* --- MODIFICADO: De 'pop' a 'shake' --- */}
-            <NavLink to="/carrito" className={`cart-icon-link ${isAnimating ? 'shake' : ''}`}>
+            {/* --- MODIFICADO: De 'shake' a 'pop-cart' --- */}
+            <NavLink to="/carrito" className={`cart-icon-link ${isAnimating ? 'pop-cart' : ''}`}>
               <FaShoppingCart />
               {totalItems > 0 && <span className="cart-item-count">{totalItems}</span>}
             </NavLink>
