@@ -79,3 +79,12 @@
 .add-to-cart-btn:hover {
   background-color: #003366; /* Azul más oscuro */
 }
+
+.add-to-cart-btn.added {
+  background-color: #28a745; /* Un color verde de "éxito" */
+  cursor: default;
+}
+
+.add-to-cart-btn:disabled {
+  opacity: 1; /* Quitamos la opacidad por defecto de "disabled" */
+}

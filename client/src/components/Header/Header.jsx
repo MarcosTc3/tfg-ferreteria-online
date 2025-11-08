@@ -1,21 +1,41 @@
 // src/components/Header/Header.jsx
 
-import { useState } from 'react'; // 1. Importamos useState
+import { useState, useEffect, useRef } from 'react'; // 1. Importamos más hooks
 import { NavLink } from 'react-router-dom';
 import './Header.css';
 import logo from '../../assets/logo.jpg';
 import { useCart } from '../../context/CartContext';
 import CartPreview from '../CartPreview/CartPreview';
-import { FaShoppingCart, FaBars, FaTimes } from 'react-icons/fa'; // 2. Importamos iconos de menú
+import { FaShoppingCart, FaBars, FaTimes } from 'react-icons/fa';
 
 function Header() {
   const { cartItems } = useCart();
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
-  // 3. Estado para controlar si el menú móvil está abierto o cerrado
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  // 2. Estado para la animación del carrito
+  const [isAnimating, setIsAnimating] = useState(false);
+  
+  // 3. Ref para guardar el número previo de items
+  const prevTotalItems = useRef(totalItems);
 
-  // 4. Función para cerrar el menú (la usaremos en los enlaces)
+  // 4. Efecto que se ejecuta CADA VEZ que 'totalItems' cambia
+  useEffect(() => {
+    // Solo animamos si el número de items AUMENTÓ
+    if (totalItems > prevTotalItems.current) {
+      setIsAnimating(true); // Activa la animación
+      
+      // 5. Quita la animación después de 300ms (lo que dura la animación CSS)
+      const timer = setTimeout(() => setIsAnimating(false), 300);
+      return () => clearTimeout(timer);
+    }
+    
+    // 6. Actualiza el valor previo para la próxima vez
+    prevTotalItems.current = totalItems;
+  }, [totalItems]); // Este efecto vigila la variable 'totalItems'
+
+
   const closeMobileMenu = () => setIsMenuOpen(false);
 
   return (
@@ -26,7 +46,6 @@ function Header() {
         </NavLink>
 
         <div className="header-right">
-          {/* 5. Aplicamos una clase condicional al <nav> */}
           <nav className={isMenuOpen ? "main-navigation nav-open" : "main-navigation"}>
             <div className="mobile-menu-header">
               <span>Menú</span>
@@ -44,7 +63,8 @@ function Header() {
           </nav>
 
           <div className="header-cart-container">
-            <NavLink to="/carrito" className="cart-icon-link">
+            {/* 7. Aplicamos la clase de animación 'pop' si 'isAnimating' es true */}
+            <NavLink to="/carrito" className={`cart-icon-link ${isAnimating ? 'pop' : ''}`}>
               <FaShoppingCart />
               {totalItems > 0 && <span className="cart-item-count">{totalItems}</span>}
             </NavLink>
@@ -53,7 +73,6 @@ function Header() {
             </div>
           </div>
 
-          {/* 6. Botón de hamburguesa que solo se verá en móvil */}
           <button className="menu-toggle" onClick={() => setIsMenuOpen(true)}>
             <FaBars />
           </button>
