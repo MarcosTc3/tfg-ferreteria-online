@@ -17,7 +17,7 @@
 
 .product-image-container {
   width: 100%;
-  padding-top: 100%; /* Proporción 1:1 para la imagen */
+  padding-top: 100%;
   position: relative;
   background-color: #f8f9fa;
 }
@@ -28,14 +28,14 @@
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain; /* 'contain' para que se vea todo el producto sin cortar */
+  object-fit: contain;
   padding: 1rem;
   box-sizing: border-box;
 }
 
 .product-info {
   padding: 1rem;
-  flex-grow: 1; /* Empuja el botón hacia abajo */
+  flex-grow: 1;
   text-align: left;
 }
 
@@ -51,20 +51,20 @@
   font-weight: 600;
   color: #333;
   margin: 0 0 0.5rem 0;
-  min-height: 48px; /* Espacio para 2-3 líneas de texto */
+  min-height: 48px;
 }
 
 .product-price {
   font-size: 1.25rem;
   font-weight: bold;
-  color: #e3001b; /* Rojo corporativo */
+  color: #e3001b;
   margin: 0;
 }
 
 .add-to-cart-btn {
   width: calc(100% - 2rem);
   margin: 0 1rem 1rem 1rem;
-  background-color: #004a99; /* Azul oscuro */
+  background-color: #004a99;
   color: white;
   border: none;
   padding: 0.75rem;
@@ -77,14 +77,15 @@
 }
 
 .add-to-cart-btn:hover {
-  background-color: #003366; /* Azul más oscuro */
+  background-color: #003366;
 }
 
+/* MODIFICADO: Ahora solo cambia el cursor, no el color */
 .add-to-cart-btn.added {
-  background-color: #28a745; /* Un color verde de "éxito" */
+  background-color: #004a99; /* Mantiene el color original */
   cursor: default;
 }
 
 .add-to-cart-btn:disabled {
-  opacity: 1; /* Quitamos la opacidad por defecto de "disabled" */
+  opacity: 1;
 }

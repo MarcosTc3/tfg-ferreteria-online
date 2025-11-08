@@ -1,6 +1,6 @@
 // src/components/Header/Header.jsx
 
-import { useState, useEffect, useRef } from 'react'; // 1. Importamos más hooks
+import { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import './Header.css';
 import logo from '../../assets/logo.jpg';
@@ -13,27 +13,19 @@ function Header() {
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
-  // 2. Estado para la animación del carrito
   const [isAnimating, setIsAnimating] = useState(false);
-  
-  // 3. Ref para guardar el número previo de items
   const prevTotalItems = useRef(totalItems);
 
-  // 4. Efecto que se ejecuta CADA VEZ que 'totalItems' cambia
   useEffect(() => {
-    // Solo animamos si el número de items AUMENTÓ
     if (totalItems > prevTotalItems.current) {
-      setIsAnimating(true); // Activa la animación
+      setIsAnimating(true);
       
-      // 5. Quita la animación después de 300ms (lo que dura la animación CSS)
-      const timer = setTimeout(() => setIsAnimating(false), 300);
+      // Duración de la nueva animación (400ms)
+      const timer = setTimeout(() => setIsAnimating(false), 400); 
       return () => clearTimeout(timer);
     }
-    
-    // 6. Actualiza el valor previo para la próxima vez
     prevTotalItems.current = totalItems;
-  }, [totalItems]); // Este efecto vigila la variable 'totalItems'
+  }, [totalItems]);
 
 
   const closeMobileMenu = () => setIsMenuOpen(false);
@@ -63,8 +55,8 @@ function Header() {
           </nav>
 
           <div className="header-cart-container">
-            {/* 7. Aplicamos la clase de animación 'pop' si 'isAnimating' es true */}
-            <NavLink to="/carrito" className={`cart-icon-link ${isAnimating ? 'pop' : ''}`}>
+            {/* --- MODIFICADO: De 'pop' a 'shake' --- */}
+            <NavLink to="/carrito" className={`cart-icon-link ${isAnimating ? 'shake' : ''}`}>
               <FaShoppingCart />
               {totalItems > 0 && <span className="cart-item-count">{totalItems}</span>}
             </NavLink>

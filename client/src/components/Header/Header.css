@@ -45,10 +45,7 @@
   transition: color 0.3s ease;
 }
 
-.main-navigation a:hover {
-  color: #e3001b;
-}
-
+.main-navigation a:hover { color: #e3001b; }
 .main-navigation a.active { color: #333; }
 .main-navigation a.active::after {
   content: '';
@@ -100,15 +97,11 @@
   transform: translateY(0);
 }
 
-.menu-toggle { display: none; } /* Oculto por defecto en escritorio */
+.menu-toggle { display: none; }
 .mobile-menu-header { display: none; }
 
-/* ---- AQUI EMPIEZA LA MAGIA DEL RESPONSIVE ---- */
 @media (max-width: 992px) {
-  .header-right {
-    gap: 1.5rem; /* Reducimos espacio entre carrito y menú */
-  }
-
+  .header-right { gap: 1.5rem; }
   .menu-toggle {
     display: block;
     background: none;
@@ -117,7 +110,6 @@
     cursor: pointer;
     color: #333;
   }
-
   .main-navigation {
     position: fixed;
     top: 0;
@@ -126,36 +118,27 @@
     height: 100vh;
     background-color: white;
     box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-    transform: translateX(100%); /* Oculto fuera de la pantalla */
+    transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
     z-index: 2000;
   }
-
-  .main-navigation.nav-open {
-    transform: translateX(0); /* Lo hacemos visible */
-  }
-
+  .main-navigation.nav-open { transform: translateX(0); }
   .main-navigation ul {
-    flex-direction: column; /* Apilamos los enlaces verticalmente */
+    flex-direction: column;
     gap: 0;
     padding-top: 2rem;
   }
-
   .main-navigation a {
     display: block;
     padding: 1rem 2rem;
     font-size: 1.1rem;
     border-bottom: 1px solid #f0f0f0;
   }
-  
-  .main-navigation a.active::after {
-    display: none; /* Quitamos el subrayado en móvil */
-  }
+  .main-navigation a.active::after { display: none; }
   .main-navigation a.active {
-    background-color: #f8f9fa; /* Resaltamos el enlace activo */
+    background-color: #f8f9fa;
     color: #e3001b;
   }
-
   .mobile-menu-header {
     display: flex;
     justify-content: space-between;
@@ -165,7 +148,6 @@
     font-weight: bold;
     font-size: 1.2rem;
   }
-  
   .close-menu-btn {
     background: none;
     border: none;
@@ -174,16 +156,15 @@
   }
 }
 
-/* src/components/Header/Header.css --- AÑADIR AL FINAL */
-
-/* 1. Definimos la animación de "pop" */
-@keyframes pop {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.3); } /* Crece un 30% */
-  100% { transform: scale(1); }
+/* --- MODIFICADO: De 'pop' a 'shake' --- */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); } /* Sacudida a la izquierda */
+  50% { transform: translateX(4px); } /* Sacudida a la derecha */
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
 }
 
-/* 2. Aplicamos la animación cuando la clase .pop está presente */
-.cart-icon-link.pop {
-  animation: pop 0.3s ease-in-out;
+.cart-icon-link.shake {
+  animation: shake 0.4s ease-in-out; /* Duración de 400ms */
 }
