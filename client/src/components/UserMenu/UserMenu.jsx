@@ -11,23 +11,27 @@ function UserMenu() {
 
   const handleLogout = () => {
     logout();
-    navigate('/'); // Redirigimos al inicio al cerrar sesión
+    navigate('/');
   };
 
   return (
     <div className="user-menu-container">
-      
-      {/* 1. Icono de usuario (sin el div rojo) */}
       <FaUserCircle className="user-icon" />
-
-      {/* 2. El menú desplegable (sigue igual) */}
       <div className="user-dropdown">
         {user ? (
-          // Contenido si el usuario ESTÁ conectado
+          // --- VISTA LOGUEADO ---
           <>
             <div className="dropdown-header">
               <span>Bienvenido, {user.name || user.email}</span>
             </div>
+
+            {/* --- ENLACE SOLO PARA ADMIN --- */}
+            {user.role === 'admin' && (
+              <Link to="/admin/mensajes" className="dropdown-item admin-link">
+                Panel de Admin
+              </Link>
+            )}
+
             <Link to="/perfil" className="dropdown-item">Mi Perfil</Link>
             <Link to="/pedidos" className="dropdown-item">Mis Pedidos</Link>
             <button onClick={handleLogout} className="dropdown-item logout-btn">
@@ -35,7 +39,7 @@ function UserMenu() {
             </button>
           </>
         ) : (
-          // Contenido si el usuario NO está conectado
+          // --- VISTA INVITADO ---
           <>
             <div className="dropdown-header">
               <span>Invitado</span>

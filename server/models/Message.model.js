@@ -25,11 +25,11 @@ const messageSchema = new mongoose.Schema(
     },
     isRead: {
       type: Boolean,
-      default: false, // Para saber si ya lo leíste en el panel
+      default: false,
     },
   },
   {
-    timestamps: true, // Guarda la fecha en que se recibió
+    timestamps: true,
   }
 );
 

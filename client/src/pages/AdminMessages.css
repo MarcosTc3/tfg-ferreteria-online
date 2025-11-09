@@ -1,0 +1,51 @@
+/* src/pages/AdminMessages.css */
+
+.admin-messages-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.admin-messages-container h1 {
+  margin-bottom: 2rem;
+}
+
+.messages-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.messages-table th,
+.messages-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.messages-table th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+.message-from {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.message-email {
+  color: #555;
+  font-size: 0.85rem;
+}
+
+.message-content {
+  max-width: 400px;
+  white-space: pre-wrap;
+}
+
+.message-date {
+  font-size: 0.85rem;
+  color: #777;
+}

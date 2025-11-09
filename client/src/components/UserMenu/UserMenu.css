@@ -78,3 +78,14 @@
   color: #e3001b;
   font-weight: bold;
 }
+
+.admin-link {
+  background-color: #f0f5fa; /* Un fondo azulado claro */
+  font-weight: bold;
+  color: #004a99; /* Color azul */
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.admin-link:hover {
+  background-color: #e0eaf5;
+}

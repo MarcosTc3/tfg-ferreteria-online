@@ -2,8 +2,9 @@
 
 import { Routes, Route } from 'react-router-dom';
 
-// 1. Importar el guardián
+// Guardias
 import ProtectedRoute from './components/ProtectedRoute';
+import AdminRoute from './components/AdminRoute'; // 1. IMPORTAR GUARDIA ADMIN
 
 // Componentes de Layout
 import Header from './components/Header/Header';
@@ -20,11 +21,14 @@ import AvisoLegal from './pages/AvisoLegal';
 import Registro from './pages/Registro';
 import Login from './pages/Login';
 
-// Páginas Protegidas
+// Páginas Protegidas (Cliente)
 import Carrito from './pages/Carrito';
 import FinalizarCompra from './pages/FinalizarCompra';
 import Perfil from './pages/Perfil';
 import Pedidos from './pages/Pedidos';
+
+// Páginas Protegidas (Admin)
+import AdminMessages from './pages/AdminMessages'; // 2. IMPORTAR PÁGINA ADMIN
 
 function App() {
   return (
@@ -35,48 +39,27 @@ function App() {
           {/* --- RUTAS PÚBLICAS --- */}
           <Route path="/" element={<Inicio />} />
           <Route path="/tienda" element={<Tienda />} />
-          <Route path="/servicios" element={<Servicios />} />
-          <Route path="/contacto" element={<Contacto />} />
-          <Route path="/quienes-somos" element={<QuienesSomos />} />
-          <Route path="/politica-privacidad" element={<PoliticaPrivacidad />} />
-          <Route path="/aviso-legal" element={<AvisoLegal />} />
+          {/* ... (otras rutas públicas) */}
           <Route path="/registro" element={<Registro />} />
           <Route path="/login" element={<Login />} />
 
-          {/* --- RUTAS PROTEGIDAS --- */}
-          {/* 2. Envolvemos la página con el componente ProtectedRoute */}
+          {/* --- RUTAS PROTEGIDAS (CLIENTE) --- */}
+          <Route path="/carrito" element={<ProtectedRoute><Carrito /></ProtectedRoute>} />
+          <Route path="/finalizar-compra" element={<ProtectedRoute><FinalizarCompra /></ProtectedRoute>} />
+          <Route path="/perfil" element={<ProtectedRoute><Perfil /></ProtectedRoute>} />
+          <Route path="/pedidos" element={<ProtectedRoute><Pedidos /></ProtectedRoute>} />
+
+          {/* --- RUTAS PROTEGIDAS (ADMIN) --- */}
+          {/* 3. AÑADIR RUTA ADMIN */}
           <Route 
-            path="/carrito" 
+            path="/admin/mensajes" 
             element={
-              <ProtectedRoute>
-                <Carrito />
-              </ProtectedRoute>
+              <AdminRoute>
+                <AdminMessages />
+              </AdminRoute>
             } 
           />
-          <Route 
-            path="/finalizar-compra" 
-            element={
-              <ProtectedRoute>
-                <FinalizarCompra />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/perfil" 
-            element={
-              <ProtectedRoute>
-                <Perfil />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/pedidos" 
-            element={
-              <ProtectedRoute>
-                <Pedidos />
-              </ProtectedRoute>
-            } 
-          />
+
         </Routes>
       </main>
       <Footer />

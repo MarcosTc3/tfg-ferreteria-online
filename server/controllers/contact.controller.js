@@ -2,32 +2,29 @@
 
 import Message from '../models/Message.model.js';
 
-// Controlador para guardar un nuevo mensaje de contacto
+// Controlador para GUARDAR un nuevo mensaje
 export const saveMessage = async (req, res) => {
   const { name, email, subject, message } = req.body;
-
   try {
-    // Validamos que todos los campos estén
     if (!name || !email || !subject || !message) {
       return res.status(400).json({ msg: 'Todos los campos son obligatorios' });
     }
-
-    // Creamos la nueva instancia del mensaje
-    const newMessage = new Message({
-      name,
-      email,
-      subject,
-      message,
-    });
-
-    // Guardamos en la base de datos
+    const newMessage = new Message({ name, email, subject, message });
     await newMessage.save();
-
-    // Respondemos al frontend con éxito
     res.status(201).json({ msg: 'Mensaje enviado correctamente' });
-
   } catch (error) {
     console.error('Error al guardar el mensaje:', error.message);
+    res.status(500).send('Error del servidor');
+  }
+};
+
+// Controlador para OBTENER todos los mensajes (solo para admin)
+export const getMessages = async (req, res) => {
+  try {
+    const messages = await Message.find().sort({ createdAt: -1 });
+    res.json(messages);
+  } catch (error) {
+    console.error('Error al obtener los mensajes:', error.message);
     res.status(500).send('Error del servidor');
   }
 };
