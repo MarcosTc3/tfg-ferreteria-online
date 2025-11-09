@@ -1,6 +1,7 @@
 // src/components/ContactForm/ContactForm.jsx
 
 import { useState } from 'react';
+import axios from 'axios'; // 1. Importamos axios
 import './ContactForm.css';
 
 function ContactForm() {
@@ -11,93 +12,62 @@ function ContactForm() {
     message: '',
   });
 
-  const [errors, setErrors] = useState({});
+  // Estado para mensajes de éxito o error
+  const [statusMsg, setStatusMsg] = useState('');
+  const [isError, setIsError] = useState(false);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  const { name, email, subject, message } = formData;
 
-  const validateForm = () => {
-    let formErrors = {};
-    if (!formData.name) formErrors.name = "El nombre es obligatorio.";
-    if (!formData.email) {
-      formErrors.email = "El email es obligatorio.";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      formErrors.email = "El formato del email no es válido.";
-    }
-    if (!formData.subject) formErrors.subject = "El asunto es obligatorio.";
-    if (!formData.message) formErrors.message = "El mensaje es obligatorio.";
-    
-    return formErrors;
-  };
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const formErrors = validateForm();
-    if (Object.keys(formErrors).length === 0) {
-      alert('Formulario enviado (simulación). ¡Gracias por contactar!');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsError(false);
+    setStatusMsg('');
+
+    try {
+      // 2. Apuntamos a nuestro nuevo endpoint del backend
+      const res = await axios.post('http://localhost:5000/api/contact', formData);
+
+      // 3. Mostramos mensaje de éxito y limpiamos el formulario
+      setStatusMsg(res.data.msg); // "Mensaje enviado correctamente"
       setFormData({ name: '', email: '', subject: '', message: '' });
-      setErrors({});
-    } else {
-      setErrors(formErrors);
+
+    } catch (err) {
+      // 4. Mostramos el error que nos envía el backend
+      setIsError(true);
+      setStatusMsg(err.response.data.msg || 'Error en el servidor');
     }
   };
 
   return (
     <div className="contact-form-container">
       <h3>Envíanos un Mensaje</h3>
-      <form onSubmit={handleSubmit} noValidate>
+
+      {/* 5. Mostramos el mensaje de estado (éxito o error) */}
+      {statusMsg && (
+        <div className={`status-message ${isError ? 'error-msg' : 'success-msg'}`}>
+          {statusMsg}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Nombre Completo</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className={errors.name ? 'input-error' : ''}
-          />
-          {errors.name && <span className="error-text">{errors.name}</span>}
+          <input type="text" id="name" name="name" value={name} onChange={onChange} required />
         </div>
         <div className="form-group">
           <label htmlFor="email">Correo Electrónico</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className={errors.email ? 'input-error' : ''}
-          />
-          {errors.email && <span className="error-text">{errors.email}</span>}
+          <input type="email" id="email" name="email" value={email} onChange={onChange} required />
         </div>
         <div className="form-group">
           <label htmlFor="subject">Asunto</label>
-          <input
-            type="text"
-            id="subject"
-            name="subject"
-            value={formData.subject}
-            onChange={handleChange}
-            className={errors.subject ? 'input-error' : ''}
-          />
-          {errors.subject && <span className="error-text">{errors.subject}</span>}
+          <input type="text" id="subject" name="subject" value={subject} onChange={onChange} required />
         </div>
         <div className="form-group">
           <label htmlFor="message">Mensaje</label>
-          <textarea
-            id="message"
-            name="message"
-            rows="6"
-            value={formData.message}
-            onChange={handleChange}
-            className={errors.message ? 'input-error' : ''}
-          ></textarea>
-          {errors.message && <span className="error-text">{errors.message}</span>}
+          <textarea id="message" name="message" rows="6" value={message} onChange={onChange} required></textarea>
         </div>
         <button type="submit" className="submit-button">Enviar Mensaje</button>
       </form>

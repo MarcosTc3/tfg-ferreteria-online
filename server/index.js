@@ -5,8 +5,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
-// 1. Importar nuestras rutas
+// Importar nuestras rutas
 import authRoutes from './routes/auth.routes.js';
+import contactRoutes from './routes/contact.routes.js'; // <-- 1. IMPORTAR RUTA DE CONTACTO
 
 dotenv.config(); 
 const app = express();
@@ -20,11 +21,11 @@ app.get('/', (req, res) => {
   res.send('¡El servidor de la Ferretería está funcionando!');
 });
 
-// 2. Usar las rutas de autenticación
-// Todo lo que empiece por /api/auth será manejado por authRoutes
+// Usar las rutas
 app.use('/api/auth', authRoutes);
+app.use('/api/contact', contactRoutes); // <-- 2. USAR LA RUTA DE CONTACTO
 
-// 3. Conexión a BD y arranque
+// Conexión a BD y arranque
 console.log("Conectando a MongoDB...");
 mongoose.connect(MONGO_URI)
   .then(() => {
