@@ -1,21 +1,30 @@
 // src/components/ProductCard/ProductCard.jsx
 
-import { useState } from 'react'; // 1. Importamos useState
+import { useState } from 'react';
 import './ProductCard.css';
 import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../context/AuthContext'; // 1. Importamos el hook de autenticación
+import { useNavigate } from 'react-router-dom'; // 2. Importamos el hook de navegación
 
 function ProductCard({ product }) {
   const { addToCart } = useCart();
+  const { user } = useAuth(); // 3. Obtenemos el estado del usuario
+  const navigate = useNavigate(); // 4. Obtenemos la función para navegar
   
-  // 2. Creamos un estado local para la animación del botón
   const [isAdded, setIsAdded] = useState(false);
 
-  // 3. Creamos una nueva función manejadora
   const handleAddToCart = () => {
-    addToCart(product); // Añade el producto al carrito global
-    setIsAdded(true);   // Activa el estado "añadido" del botón
+    // 5. ¡AQUÍ ESTÁ LA NUEVA LÓGICA!
+    if (!user) {
+      // Si NO hay usuario, redirigimos al login y no hacemos nada más
+      navigate('/login');
+      return; 
+    }
+
+    // Si hay usuario, la función continúa como antes:
+    addToCart(product);
+    setIsAdded(true);
     
-    // 4. Después de 1.5 segundos, vuelve al estado normal
     setTimeout(() => {
       setIsAdded(false);
     }, 1500);
@@ -32,11 +41,10 @@ function ProductCard({ product }) {
         <p className="product-price">{product.price.toFixed(2)} €</p>
       </div>
       
-      {/* 5. Modificamos el botón */}
       <button 
         className={`add-to-cart-btn ${isAdded ? 'added' : ''}`}
         onClick={handleAddToCart}
-        disabled={isAdded} // Deshabilitamos el botón mientras está en "Añadido"
+        disabled={isAdded}
       >
         {isAdded ? '¡Añadido!' : 'Añadir al carrito'}
       </button>
