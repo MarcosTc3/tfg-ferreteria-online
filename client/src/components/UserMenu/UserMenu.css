@@ -1,0 +1,80 @@
+/* src/components/UserMenu/UserMenu.css */
+
+.user-menu-container {
+  position: relative;
+  cursor: pointer;
+}
+
+/* --- ESTILOS REVERTIDOS --- */
+.user-icon {
+  font-size: 1.8rem; /* Tamaño del icono */
+  color: #333; /* Color oscuro por defecto */
+  transition: color 0.3s ease;
+}
+
+.user-menu-container:hover .user-icon {
+  color: #e3001b; /* Cambia a rojo al pasar el ratón */
+}
+/* --- FIN DE ESTILOS REVERTIDOS --- */
+
+
+.user-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1001;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  width: 220px;
+  padding: 0.5rem 0;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+}
+
+.user-menu-container:hover .user-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0.5rem);
+}
+
+.dropdown-header {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+  color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-header span {
+  font-weight: bold;
+  color: #333;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+.logout-btn {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #e3001b;
+  font-weight: bold;
+}

@@ -24,7 +24,7 @@
 .header-right {
   display: flex;
   align-items: center;
-  gap: 2.5rem;
+  gap: 2.5rem; /* Espacio entre el carrito, icono de usuario y menú */
 }
 
 .main-navigation ul {
@@ -64,8 +64,6 @@
   font-size: 1.5rem;
   color: #333;
   transition: color 0.3s ease, transform 0.3s ease;
-  
-  /* --- ¡LA CORRECCIÓN! --- */
   display: inline-block; /* Permite que 'transform: scale' funcione */
 }
 
@@ -161,6 +159,7 @@
   }
 }
 
+/* Animación del carrito */
 @keyframes pop-cart {
   0% {
     transform: scale(1);

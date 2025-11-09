@@ -6,6 +6,7 @@ import './Header.css';
 import logo from '../../assets/logo.jpg';
 import { useCart } from '../../context/CartContext';
 import CartPreview from '../CartPreview/CartPreview';
+import UserMenu from '../UserMenu/UserMenu'; // 1. Importamos el nuevo componente
 import { FaShoppingCart, FaBars, FaTimes } from 'react-icons/fa';
 
 function Header() {
@@ -19,14 +20,11 @@ function Header() {
   useEffect(() => {
     if (totalItems > prevTotalItems.current) {
       setIsAnimating(true);
-      
-      // Ajustamos el tiempo para que coincida con la nueva animación de 300ms
       const timer = setTimeout(() => setIsAnimating(false), 300); 
       return () => clearTimeout(timer);
     }
     prevTotalItems.current = totalItems;
   }, [totalItems]);
-
 
   const closeMobileMenu = () => setIsMenuOpen(false);
 
@@ -38,6 +36,7 @@ function Header() {
         </NavLink>
 
         <div className="header-right">
+          {/* 2. Limpiamos la navegación principal */ }
           <nav className={isMenuOpen ? "main-navigation nav-open" : "main-navigation"}>
             <div className="mobile-menu-header">
               <span>Menú</span>
@@ -51,11 +50,14 @@ function Header() {
               <li><NavLink to="/tienda" onClick={closeMobileMenu}>Tienda</NavLink></li>
               <li><NavLink to="/servicios" onClick={closeMobileMenu}>Servicios</NavLink></li>
               <li><NavLink to="/contacto" onClick={closeMobileMenu}>Contacto</NavLink></li>
+              {/* Ya no necesitamos los enlaces de auth aquí */}
             </ul>
           </nav>
 
+          {/* 3. Eliminamos los botones de auth de escritorio */}
+
+          {/* 4. Ponemos el icono del carrito */}
           <div className="header-cart-container">
-            {/* --- MODIFICADO: De 'shake' a 'pop-cart' --- */}
             <NavLink to="/carrito" className={`cart-icon-link ${isAnimating ? 'pop-cart' : ''}`}>
               <FaShoppingCart />
               {totalItems > 0 && <span className="cart-item-count">{totalItems}</span>}
@@ -64,6 +66,9 @@ function Header() {
               <CartPreview />
             </div>
           </div>
+
+          {/* 5. Ponemos nuestro nuevo icono de usuario */}
+          <UserMenu />
 
           <button className="menu-toggle" onClick={() => setIsMenuOpen(true)}>
             <FaBars />
