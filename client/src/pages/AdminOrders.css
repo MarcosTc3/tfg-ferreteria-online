@@ -1,0 +1,91 @@
+/* src/pages/AdminOrders.css */
+
+.admin-orders-container {
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.admin-orders-container h1 {
+  margin-bottom: 2rem;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.orders-table th,
+.orders-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.orders-table th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+.order-user-info {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.order-user-email {
+  color: #555;
+  font-size: 0.85rem;
+}
+
+.order-items-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.order-total {
+  font-weight: bold;
+  color: #333;
+}
+
+.status-select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #333; /* Texto oscuro para legibilidad */
+}
+
+/* --- COLORES ACTUALIZADOS --- */
+
+/* Pendiente (Naranja) */
+.status-select.Pendiente {
+  border-color: #ffc107;
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+/* En Camino (Azul) */
+.status-select.En.Camino {
+  border-color: #007bff;
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+/* Entregado (Verde) */
+.status-select.Entregado {
+  border-color: #28a745;
+  background-color: #d4edda;
+  color: #155724;
+}
+
+/* Cancelado (Rojo) */
+.status-select.Cancelado {
+  border-color: #dc3545;
+  background-color: #f8d7da;
+  color: #721c24;
+}

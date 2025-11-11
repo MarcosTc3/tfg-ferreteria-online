@@ -3,34 +3,29 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useCart } from '../context/CartContext'; // 1. Importamos useCart
-import { useAuth } from '../context/AuthContext'; // 2. Importamos useAuth
+import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import './FinalizarCompra.css';
 
 function FinalizarCompra() {
-  // 3. Obtenemos lo que necesitamos de nuestros "cerebros"
   const { cartItems, clearCart } = useCart();
-  const { token, user } = useAuth(); // 'token' para autorización, 'user' para pre-rellenar
+  const { token } = useAuth();
   const navigate = useNavigate();
 
-  // 4. Estado para el formulario de envío
   const [shippingAddress, setShippingAddress] = useState({
     address: '',
     city: '',
     postalCode: '',
   });
 
-  // 5. Estado para el formulario de pago (simulado)
   const [paymentInfo, setPaymentInfo] = useState({
     cardNumber: '',
     expiryDate: '',
     cvc: '',
   });
 
-  // Calcular el precio total desde el carrito
   const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  // Manejador para los cambios en los inputs
   const onChangeShipping = (e) => {
     setShippingAddress({ ...shippingAddress, [e.target.name]: e.target.value });
   };
@@ -38,28 +33,23 @@ function FinalizarCompra() {
     setPaymentInfo({ ...paymentInfo, [e.target.name]: e.target.value });
   };
 
-  // 6. ¡LA FUNCIÓN CLAVE! Se ejecuta al pulsar "Realizar el Pedido"
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 7. Formateamos los productos del carrito al formato que espera nuestro "molde"
     const orderItems = cartItems.map(item => ({
       name: item.name,
       quantity: item.quantity,
       price: item.price,
       image: item.image,
-      product: item.id, // Guardamos el ID del producto
+      product: item.id,
     }));
 
-    // 8. Preparamos el objeto completo del pedido
     const orderData = {
       orderItems: orderItems,
       shippingAddress: shippingAddress,
       totalPrice: totalPrice,
-      // El ID del usuario se saca del token en el backend
     };
 
-    // 9. Preparamos los 'headers' con el token de autorización
     const config = {
       headers: {
         'x-auth-token': token,
@@ -67,13 +57,11 @@ function FinalizarCompra() {
     };
 
     try {
-      // 10. Llamamos a nuestro endpoint del backend
       await axios.post('http://localhost:5000/api/orders', orderData, config);
 
-      // 11. ¡ÉXITO!
-      alert('¡Pedido realizado con éxito!');
-      clearCart(); // Vaciamos el carrito
-      navigate('/pedidos'); // Redirigimos al usuario a la página "Mis Pedidos"
+      // ¡ALERTA ELIMINADA!
+      clearCart();
+      navigate('/pedidos'); // La redirección a "Mis Pedidos" es la confirmación
 
     } catch (err) {
       console.error('Error al crear el pedido:', err.response?.data);
@@ -86,8 +74,7 @@ function FinalizarCompra() {
       <div className="checkout-layout">
         <div className="checkout-form">
           <form onSubmit={handleSubmit}>
-
-            {/* --- SECCIÓN DE ENVÍO --- */}
+            {/* ... (el resto del formulario JSX sigue igual) ... */}
             <div className="checkout-section">
               <h2>Dirección de Envío</h2>
               <div className="form-group">
@@ -100,7 +87,6 @@ function FinalizarCompra() {
               </div>
             </div>
 
-            {/* --- SECCIÓN DE PAGO (SIMULADA) --- */}
             <div className="checkout-section">
               <h2>Información de Pago (Simulación)</h2>
               <div className="form-group">
@@ -117,8 +103,8 @@ function FinalizarCompra() {
           </form>
         </div>
 
-        {/* --- RESUMEN DEL PEDIDO --- */}
         <aside className="checkout-summary">
+           {/* ... (el resumen del pedido JSX sigue igual) ... */}
           <h2>Resumen de tu Pedido</h2>
           {cartItems.map(item => (
             <div key={item.id} className="summary-item">

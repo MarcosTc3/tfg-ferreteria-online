@@ -11,6 +11,9 @@ function AdminMessages() {
   const [error, setError] = useState('');
   const { token } = useAuth();
 
+  const [replyingTo, setReplyingTo] = useState(null);
+  const [replyText, setReplyText] = useState('');
+
   useEffect(() => {
     const fetchMessages = async () => {
       if (!token) {
@@ -18,7 +21,6 @@ function AdminMessages() {
         setLoading(false);
         return;
       }
-
       try {
         const config = { headers: { 'x-auth-token': token } };
         const res = await axios.get('http://localhost:5000/api/contact', config);
@@ -31,13 +33,44 @@ function AdminMessages() {
           setError('Error de conexión. ¿Está el servidor backend (Terminal 1) encendido?');
         }
       } finally {
-        // Esta es la lógica de carga correcta que soluciona el "Cargando..."
         setLoading(false);
       }
     };
 
     fetchMessages();
-  }, [token]); // Se ejecuta solo una vez cuando el token está listo
+  }, [token]);
+
+  const handleSendReply = async (messageId) => {
+    try {
+      const config = { headers: { 'x-auth-token': token } };
+      const body = { replyText };
+
+      await axios.put(`http://localhost:5000/api/contact/reply/${messageId}`, body, config);
+
+      // ¡ALERTA ELIMINADA!
+
+      setMessages(currentMessages =>
+        currentMessages.map(msg =>
+          msg._id === messageId
+            ? { ...msg, isReplied: true, replyMessage: replyText }
+            : msg
+        )
+      );
+
+      setReplyingTo(null);
+      setReplyText('');
+
+    } catch (err) {
+      // Esta alerta SÍ se queda, porque es un error
+      alert('Error al enviar la respuesta.');
+      console.error(err);
+    }
+  };
+
+  const openReplyBox = (message) => {
+    setReplyingTo(message._id);
+    setReplyText('');
+  };
 
   if (loading) {
     return (
@@ -59,12 +92,14 @@ function AdminMessages() {
         <p>No hay mensajes nuevos.</p>
       ) : (
         <table className="messages-table">
+           {/* ... (El resto de la tabla JSX sigue igual) ... */}
           <thead>
             <tr>
               <th>De</th>
-              <th>Asunto</th>
-              <th>Mensaje</th>
+              <th>Asunto y Mensaje</th>
+              <th>Estado</th>
               <th>Fecha</th>
+              <th>Acción</th>
             </tr>
           </thead>
           <tbody>
@@ -74,10 +109,45 @@ function AdminMessages() {
                   <div className="message-from">{msg.name}</div>
                   <div className="message-email">{msg.email}</div>
                 </td>
-                <td>{msg.subject}</td>
-                <td className="message-content">{msg.message}</td>
+                <td>
+                  <strong>{msg.subject}</strong>
+                  <div className="message-content">{msg.message}</div>
+                </td>
+                <td>
+                  {msg.isReplied ? (
+                    <span className="status-replied">Respondido</span>
+                  ) : (
+                    <span className="status-pending">Pendiente</span>
+                  )}
+                </td>
                 <td className="message-date">
                   {new Date(msg.createdAt).toLocaleString('es-ES')}
+                </td>
+                <td className="message-action">
+                  {replyingTo === msg._id ? (
+                    <div className="reply-box">
+                      <textarea
+                        rows="4"
+                        placeholder={`Respondiendo a ${msg.name}...`}
+                        value={replyText}
+                        onChange={(e) => setReplyText(e.target.value)}
+                      />
+                      <button onClick={() => handleSendReply(msg._id)} className="send-reply-btn">
+                        Enviar
+                      </button>
+                      <button onClick={() => setReplyingTo(null)} className="cancel-reply-btn">
+                        Cancelar
+                      </button>
+                    </div>
+                  ) : (
+                    <button 
+                      onClick={() => openReplyBox(msg)} 
+                      className="reply-btn"
+                      disabled={msg.isReplied}
+                    >
+                      {msg.isReplied ? 'Ya Respondido' : 'Responder'}
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}

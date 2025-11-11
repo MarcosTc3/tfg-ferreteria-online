@@ -25,13 +25,19 @@ function UserMenu() {
               <span>Bienvenido, {user.name || user.email}</span>
             </div>
 
-            {/* --- ENLACE SOLO PARA ADMIN --- */}
+            {/* --- SECCIÓN DE ADMIN --- */}
             {user.role === 'admin' && (
-              <Link to="/admin/mensajes" className="dropdown-item admin-link">
-                Panel de Admin
-              </Link>
+              <>
+                <Link to="/admin/pedidos" className="dropdown-item admin-link">
+                  Gestionar Pedidos
+                </Link>
+                <Link to="/admin/mensajes" className="dropdown-item admin-link">
+                  Ver Mensajes
+                </Link>
+              </>
             )}
 
+            {/* --- SECCIÓN DE CLIENTE --- */}
             <Link to="/perfil" className="dropdown-item">Mi Perfil</Link>
             <Link to="/pedidos" className="dropdown-item">Mis Pedidos</Link>
             <button onClick={handleLogout} className="dropdown-item logout-btn">

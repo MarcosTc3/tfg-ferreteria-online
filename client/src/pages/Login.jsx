@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './AuthForm.css';
-import { useAuth } from '../context/AuthContext'; // 1. Importamos useAuth
+import { useAuth } from '../context/AuthContext';
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -14,7 +14,7 @@ function Login() {
 
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
-  const { login } = useAuth(); // 2. Traemos la función login del contexto
+  const { login } = useAuth();
 
   const { email, password } = formData;
 
@@ -29,11 +29,9 @@ function Login() {
       const user = { email, password };
       const res = await axios.post('http://localhost:5000/api/auth/login', user);
 
-      // 3. ¡AQUÍ ESTÁ LA MAGIA!
-      // Usamos la función del contexto para guardar el token
       login(res.data.token); 
 
-      // 4. Redirigimos al usuario a la tienda
+      // ¡ALERTA ELIMINADA! La redirección es suficiente
       navigate('/tienda');
 
     } catch (err) {
@@ -62,6 +60,7 @@ function Login() {
       )}
 
       <form className="auth-form" onSubmit={onSubmit}>
+         {/* ... (el resto del formulario JSX sigue igual) ... */}
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input type="email" name="email" value={email} onChange={onChange} required />
