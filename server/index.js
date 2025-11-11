@@ -7,7 +7,8 @@ import mongoose from 'mongoose';
 
 // Importar nuestras rutas
 import authRoutes from './routes/auth.routes.js';
-import contactRoutes from './routes/contact.routes.js'; // <-- 1. IMPORTAR RUTA DE CONTACTO
+import contactRoutes from './routes/contact.routes.js';
+import orderRoutes from './routes/order.routes.js'; // <-- 1. IMPORTAR RUTA DE PEDIDOS
 
 dotenv.config(); 
 const app = express();
@@ -23,7 +24,8 @@ app.get('/', (req, res) => {
 
 // Usar las rutas
 app.use('/api/auth', authRoutes);
-app.use('/api/contact', contactRoutes); // <-- 2. USAR LA RUTA DE CONTACTO
+app.use('/api/contact', contactRoutes);
+app.use('/api/orders', orderRoutes); // <-- 2. USAR LA RUTA DE PEDIDOS
 
 // Conexión a BD y arranque
 console.log("Conectando a MongoDB...");

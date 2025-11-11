@@ -12,6 +12,7 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (product) => {
+    // ... (tu código existente de addToCart)
     const existingItem = cartItems.find((item) => item.id === product.id);
     if (existingItem) {
       setCartItems(
@@ -30,13 +31,10 @@ export const CartProvider = ({ children }) => {
     setCartItems(cartItems.filter((item) => item.id !== productId));
   };
 
-  // --- FUNCIÓN MODIFICADA ---
   const updateItemQuantity = (productId, newQuantity) => {
-    // Aseguramos que la nueva cantidad no sea menor que 1
     if (newQuantity < 1) {
-      newQuantity = 1; // Si intentan bajar de 1, la dejamos en 1.
+      newQuantity = 1; 
     }
-
     setCartItems(
       cartItems.map((item) =>
         item.id === productId ? { ...item, quantity: newQuantity } : item
@@ -44,8 +42,22 @@ export const CartProvider = ({ children }) => {
     );
   };
 
+  // --- ¡NUEVA FUNCIÓN! ---
+  // Vacía el carrito por completo
+  const clearCart = () => {
+    setCartItems([]);
+  };
+  // --- FIN DE NUEVA FUNCIÓN ---
+
+  // Añadimos la nueva función al 'value' para que esté disponible
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateItemQuantity }}>
+    <CartContext.Provider value={{ 
+      cartItems, 
+      addToCart, 
+      removeFromCart, 
+      updateItemQuantity, 
+      clearCart // <-- AÑADIDA AQUÍ
+    }}>
       {children}
     </CartContext.Provider>
   );
