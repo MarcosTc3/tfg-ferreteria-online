@@ -1,0 +1,14 @@
+/* src/layouts/AdminLayout.css */
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f6f9; /* Un gris muy suave para el fondo del panel */
+}
+
+.admin-content {
+  flex-grow: 1;
+  margin-left: 260px; /* El mismo ancho que el sidebar */
+  padding: 2rem;
+  width: calc(100% - 260px); /* Para asegurar que no se desborde */
+}

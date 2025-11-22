@@ -1,7 +1,8 @@
 // src/components/ContactForm/ContactForm.jsx
 
 import { useState } from 'react';
-import axios from 'axios'; // 1. Importamos axios
+import axios from 'axios';
+import { useAuth } from '../../context/AuthContext'; // 1. Importamos el contexto de autenticación
 import './ContactForm.css';
 
 function ContactForm() {
@@ -11,10 +12,11 @@ function ContactForm() {
     subject: '',
     message: '',
   });
-
-  // Estado para mensajes de éxito o error
+  
   const [statusMsg, setStatusMsg] = useState('');
   const [isError, setIsError] = useState(false);
+
+  const { token } = useAuth(); // 2. Obtenemos el token del usuario logueado
 
   const { name, email, subject, message } = formData;
 
@@ -27,17 +29,27 @@ function ContactForm() {
     setStatusMsg('');
 
     try {
-      // 2. Apuntamos a nuestro nuevo endpoint del backend
-      const res = await axios.post('http://localhost:5000/api/contact', formData);
+      // 3. Preparamos la configuración. 
+      // Si hay token, lo añadimos a la cabecera. Si no, enviamos sin cabecera (anónimo).
+      const config = token ? {
+        headers: {
+          'x-auth-token': token
+        }
+      } : {};
 
-      // 3. Mostramos mensaje de éxito y limpiamos el formulario
-      setStatusMsg(res.data.msg); // "Mensaje enviado correctamente"
+      // 4. Enviamos la petición con la configuración (que incluye el token si existe)
+      const res = await axios.post('http://localhost:5000/api/contact', formData, config);
+
+      setStatusMsg(res.data.msg);
       setFormData({ name: '', email: '', subject: '', message: '' });
 
     } catch (err) {
-      // 4. Mostramos el error que nos envía el backend
       setIsError(true);
-      setStatusMsg(err.response.data.msg || 'Error en el servidor');
+      // Comprobación de seguridad por si la respuesta de error no tiene el formato esperado
+      const errorMsg = err.response && err.response.data && err.response.data.msg 
+        ? err.response.data.msg 
+        : 'Error en el servidor';
+      setStatusMsg(errorMsg);
     }
   };
 
@@ -45,7 +57,6 @@ function ContactForm() {
     <div className="contact-form-container">
       <h3>Envíanos un Mensaje</h3>
 
-      {/* 5. Mostramos el mensaje de estado (éxito o error) */}
       {statusMsg && (
         <div className={`status-message ${isError ? 'error-msg' : 'success-msg'}`}>
           {statusMsg}

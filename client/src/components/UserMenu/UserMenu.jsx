@@ -19,13 +19,11 @@ function UserMenu() {
       <FaUserCircle className="user-icon" />
       <div className="user-dropdown">
         {user ? (
-          // --- VISTA LOGUEADO ---
           <>
             <div className="dropdown-header">
               <span>Bienvenido, {user.name || user.email}</span>
             </div>
-
-            {/* --- SECCIÓN DE ADMIN --- */}
+            
             {user.role === 'admin' && (
               <>
                 <Link to="/admin/pedidos" className="dropdown-item admin-link">
@@ -36,16 +34,17 @@ function UserMenu() {
                 </Link>
               </>
             )}
-
-            {/* --- SECCIÓN DE CLIENTE --- */}
+            
             <Link to="/perfil" className="dropdown-item">Mi Perfil</Link>
             <Link to="/pedidos" className="dropdown-item">Mis Pedidos</Link>
+            {/* --- NUEVO ENLACE --- */}
+            <Link to="/mis-mensajes" className="dropdown-item">Mis Mensajes</Link>
+            
             <button onClick={handleLogout} className="dropdown-item logout-btn">
               Cerrar Sesión
             </button>
           </>
         ) : (
-          // --- VISTA INVITADO ---
           <>
             <div className="dropdown-header">
               <span>Invitado</span>

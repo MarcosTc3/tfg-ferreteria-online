@@ -11,7 +11,7 @@ function Login() {
     email: '',
     password: '',
   });
-
+  
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -29,10 +29,22 @@ function Login() {
       const user = { email, password };
       const res = await axios.post('http://localhost:5000/api/auth/login', user);
 
-      login(res.data.token); 
+      const token = res.data.token;
+      
+      // 1. Iniciamos sesión en el contexto
+      login(token); 
 
-      // ¡ALERTA ELIMINADA! La redirección es suficiente
-      navigate('/tienda');
+      // 2. Decodificamos el token AQUÍ para ver qué rol tiene el usuario
+      // (El token tiene 3 partes separadas por puntos. La segunda es la información)
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const userRole = payload.user.role;
+
+      // 3. Redirigimos según el rol
+      if (userRole === 'admin') {
+        navigate('/admin'); // Si es Admin, al panel de control
+      } else {
+        navigate('/tienda'); // Si es Cliente, a la tienda
+      }
 
     } catch (err) {
       if (err.response && err.response.data.errors) {
@@ -48,7 +60,7 @@ function Login() {
   return (
     <div className="auth-container">
       <h1 className="auth-title">Iniciar Sesión</h1>
-
+      
       {errors.length > 0 && (
         <div className="error-message">
           <ul>
@@ -60,7 +72,6 @@ function Login() {
       )}
 
       <form className="auth-form" onSubmit={onSubmit}>
-         {/* ... (el resto del formulario JSX sigue igual) ... */}
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input type="email" name="email" value={email} onChange={onChange} required />

@@ -30,22 +30,136 @@
   font-weight: bold;
 }
 
-.message-from {
+.message-from { font-weight: bold; font-size: 0.9rem; }
+.message-email { color: #555; font-size: 0.85rem; }
+.message-date { font-size: 0.85rem; color: #777; }
+
+/* ESTADOS */
+.status-badge {
+  font-size: 0.85rem;
   font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.status-badge.Abierto { background-color: #fff3cd; color: #856404; }
+.status-badge.Respondido { background-color: #d4edda; color: #155724; }
+.status-badge.Cerrado { background-color: #e2e3e5; color: #383d41; }
+
+/* CHAT */
+.message-action { min-width: 350px; }
+
+.chat-container {
+  background-color: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.chat-history {
+  max-height: 300px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+  padding-right: 5px;
+}
+
+.chat-bubble {
+  padding: 10px 15px;
+  border-radius: 12px;
+  max-width: 85%;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.chat-bubble.client {
+  align-self: flex-start;
+  background-color: #e9ecef;
+  color: #333;
+  border-bottom-left-radius: 2px;
+}
+
+.chat-bubble.admin {
+  align-self: flex-end;
+  background-color: #004a99;
+  color: white;
+  border-bottom-right-radius: 2px;
+}
+
+.bubble-meta {
+  display: block;
+  font-size: 0.75rem;
+  margin-bottom: 4px;
+  opacity: 0.8;
+  font-weight: bold;
+}
+
+.reply-input-area textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  box-sizing: border-box;
+}
+
+.toggle-chat-btn {
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
   font-size: 0.9rem;
 }
+.toggle-chat-btn:hover { background-color: #138496; }
 
-.message-email {
-  color: #555;
-  font-size: 0.85rem;
+.send-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+.send-btn:hover { background-color: #218838; }
+
+.cancel-btn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.cancel-btn:hover { background-color: #5a6268; }
+
+.close-ticket-btn {
+  background-color: #343a40; /* Gris oscuro */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 0.5rem; /* Separación del botón Enviar */
 }
 
-.message-content {
-  max-width: 400px;
-  white-space: pre-wrap;
+.close-ticket-btn:hover {
+  background-color: #23272b;
 }
 
-.message-date {
-  font-size: 0.85rem;
-  color: #777;
+/* Estilo para cuando el ticket está cerrado */
+.chat-closed-message {
+  text-align: center;
+  padding: 1rem;
+  background-color: #e9ecef;
+  color: #495057;
+  border-radius: 4px;
+  font-weight: bold;
+  border: 1px solid #ced4da;
 }
