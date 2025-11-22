@@ -5,18 +5,15 @@
   cursor: pointer;
 }
 
-/* --- ESTILOS REVERTIDOS --- */
 .user-icon {
-  font-size: 1.8rem; /* Tamaño del icono */
-  color: #333; /* Color oscuro por defecto */
+  font-size: 1.8rem;
+  color: #333;
   transition: color 0.3s ease;
 }
 
 .user-menu-container:hover .user-icon {
-  color: #e3001b; /* Cambia a rojo al pasar el ratón */
+  color: #e3001b;
 }
-/* --- FIN DE ESTILOS REVERTIDOS --- */
-
 
 .user-dropdown {
   position: absolute;
@@ -29,7 +26,6 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   width: 220px;
   padding: 0.5rem 0;
-
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
@@ -69,20 +65,31 @@
   background-color: #f8f9fa;
 }
 
+/* ESTILOS DEL BOTÓN CERRAR SESIÓN */
 .logout-btn {
   width: 100%;
   text-align: left;
   background: none;
   border: none;
   cursor: pointer;
-  color: #e3001b;
+  /* Forzamos el color rojo */
+  color: #dc3545 !important; 
   font-weight: bold;
+  border-top: 1px solid #eee;
+  margin-top: 0.5rem;
+  padding-top: 0.8rem;
+  font-size: 0.95rem;
+}
+
+.logout-btn:hover {
+  color: #a71d2a !important;
+  background-color: #fff5f5;
 }
 
 .admin-link {
-  background-color: #f0f5fa; /* Un fondo azulado claro */
+  background-color: #f0f5fa;
   font-weight: bold;
-  color: #004a99; /* Color azul */
+  color: #004a99;
   border-bottom: 1px solid #e0e0e0;
 }
 

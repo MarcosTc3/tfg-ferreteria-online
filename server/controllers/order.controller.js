@@ -2,8 +2,6 @@
 
 import Order from '../models/Order.model.js';
 
-// --- ESTA FUNCIÓN YA LA TENÍAS ---
-// Controlador para crear un nuevo pedido (para clientes)
 export const createOrder = async (req, res) => {
   try {
     const { orderItems, shippingAddress, totalPrice } = req.body;
@@ -31,18 +29,12 @@ export const createOrder = async (req, res) => {
   }
 };
 
-// --- NUEVA FUNCIÓN ---
-// Controlador para OBTENER TODOS los pedidos (solo para Admin)
 export const getAllOrders = async (req, res) => {
   try {
-    // 1. Buscamos todos los pedidos
-    // 2. Usamos .populate() para traer los datos del usuario (nombre y email)
-    //    en lugar de solo su ID. ¡Esta es la magia de Mongoose!
-    // 3. Ordenamos por fecha (más nuevos primero)
     const orders = await Order.find({})
       .populate('user', 'name email')
       .sort({ createdAt: -1 });
-
+      
     res.json(orders);
   } catch (error) {
     console.error('Error al obtener los pedidos:', error.message);
@@ -50,12 +42,10 @@ export const getAllOrders = async (req, res) => {
   }
 };
 
-// --- NUEVA FUNCIÓN ---
-// Controlador para ACTUALIZAR EL ESTADO de un pedido (solo para Admin)
 export const updateOrderStatus = async (req, res) => {
   try {
-    const { status } = req.body; // El nuevo estado (ej: "En Camino")
-    const orderId = req.params.id; // El ID del pedido
+    const { status } = req.body; 
+    const orderId = req.params.id; 
 
     const order = await Order.findById(orderId);
 
@@ -63,10 +53,8 @@ export const updateOrderStatus = async (req, res) => {
       return res.status(404).json({ msg: 'Pedido no encontrado' });
     }
 
-    // Actualizamos el estado
     order.orderStatus = status;
-
-    // Si el estado es "Entregado", guardamos la fecha de entrega
+    
     if (status === 'Entregado') {
       order.deliveredAt = Date.now();
     }
@@ -76,6 +64,17 @@ export const updateOrderStatus = async (req, res) => {
 
   } catch (error) {
     console.error('Error al actualizar el pedido:', error.message);
+    res.status(500).send('Error del servidor');
+  }
+};
+
+// --- NUEVA FUNCIÓN: OBTENER MIS PEDIDOS ---
+export const getMyOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({ user: req.user.id }).sort({ createdAt: -1 });
+    res.json(orders);
+  } catch (error) {
+    console.error('Error al obtener mis pedidos:', error.message);
     res.status(500).send('Error del servidor');
   }
 };

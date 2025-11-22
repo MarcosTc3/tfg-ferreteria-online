@@ -1,26 +1,21 @@
 // src/components/ProtectedRoute.jsx
 
 import { useAuth } from '../context/AuthContext';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
-// Este componente recibe 'children', que es la página que queremos proteger
 function ProtectedRoute({ children }) {
   const { user, isLoading } = useAuth();
+  const location = useLocation();
 
-  // 1. Esperamos a que el AuthContext termine de cargar
-  // (Esto evita redirigir al login si solo estamos recargando la página)
   if (isLoading) {
-    return <div>Cargando...</div>; // Puedes poner un spinner aquí
+    return <div>Cargando...</div>;
   }
 
-  // 2. Si ya no está cargando Y NO hay usuario...
   if (!user) {
-    // Redirigimos al usuario a la página de login
-    return <Navigate to="/login" replace />;
+    // Pasamos la ubicación actual en el estado para redirigir después
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // 3. Si todo está bien (no está cargando y SÍ hay usuario),
-  // mostramos la página que quería ver (los 'children').
   return children;
 }
 

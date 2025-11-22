@@ -24,22 +24,45 @@
 .auth-form .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  font-weight: bold;
+  font-weight: 600;
   color: #333;
+  font-size: 0.95rem;
 }
 
+/* ESTILO UNIFICADO PARA TODOS LOS INPUTS */
 .auth-form .form-group input {
   width: 100%;
-  padding: 0.75rem;
+  padding: 10px 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
   box-sizing: border-box;
+  
+  /* Forzamos colores profesionales */
+  background-color: #ffffff;
+  color: #333333;
+  transition: border-color 0.3s ease;
+}
+
+/* Efecto al hacer clic en el input */
+.auth-form .form-group input:focus {
+  outline: none;
+  border-color: #004a99;
+  box-shadow: 0 0 0 3px rgba(0, 74, 153, 0.1);
+}
+
+/* ESTILO ESPECÍFICO PARA INPUTS DE SOLO LECTURA (EMAIL) */
+.auth-form .form-group input[readonly],
+.auth-form .form-group input:disabled {
+  background-color: #f2f2f2 !important; /* Gris muy claro */
+  color: #555555 !important; /* Texto gris oscuro, muy legible */
+  cursor: not-allowed;
+  border-color: #d9d9d9;
 }
 
 .auth-submit-btn {
   width: 100%;
-  background-color: #004a99; /* Azul */
+  background-color: #004a99;
   color: white;
   border: none;
   padding: 1rem;
@@ -49,6 +72,7 @@
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s ease;
+  margin-top: 1rem;
 }
 
 .auth-submit-btn:hover {
@@ -67,7 +91,6 @@
   text-decoration: underline;
 }
 
-/* Para mostrar mensajes de error */
 .error-message {
   background-color: #f8d7da;
   color: #721c24;
@@ -78,7 +101,12 @@
   font-size: 0.9rem;
 }
 
-.error-message ul {
-  margin: 0;
-  padding-left: 1.2rem;
+.success-msg {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  padding: 0.75rem 1rem;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
 }

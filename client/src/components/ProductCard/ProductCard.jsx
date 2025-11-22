@@ -3,25 +3,24 @@
 import { useState } from 'react';
 import './ProductCard.css';
 import { useCart } from '../../context/CartContext';
-import { useAuth } from '../../context/AuthContext'; // 1. Importamos el hook de autenticación
-import { useNavigate } from 'react-router-dom'; // 2. Importamos el hook de navegación
+import { useAuth } from '../../context/AuthContext';
+import { useNavigate, useLocation } from 'react-router-dom'; // Importar useLocation
 
 function ProductCard({ product }) {
   const { addToCart } = useCart();
-  const { user } = useAuth(); // 3. Obtenemos el estado del usuario
-  const navigate = useNavigate(); // 4. Obtenemos la función para navegar
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation(); // Obtener ubicación
   
   const [isAdded, setIsAdded] = useState(false);
 
   const handleAddToCart = () => {
-    // 5. ¡AQUÍ ESTÁ LA NUEVA LÓGICA!
     if (!user) {
-      // Si NO hay usuario, redirigimos al login y no hacemos nada más
-      navigate('/login');
+      // Redirigir al login guardando "from"
+      navigate('/login', { state: { from: location } });
       return; 
     }
 
-    // Si hay usuario, la función continúa como antes:
     addToCart(product);
     setIsAdded(true);
     

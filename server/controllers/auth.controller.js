@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { validationResult } from 'express-validator';
 
-// --- FUNCIÓN DE REGISTRO (la que ya tenías) ---
+// 1. REGISTER
 export const register = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -31,6 +31,8 @@ export const register = async (req, res) => {
       user: {
         id: user.id,
         role: user.role,
+        name: user.name,
+        email: user.email, // <-- ¡AÑADIDO EMAIL AQUÍ!
       },
     };
 
@@ -50,9 +52,8 @@ export const register = async (req, res) => {
   }
 };
 
-// --- NUEVA FUNCIÓN DE LOGIN ---
+// 2. LOGIN
 export const login = async (req, res) => {
-  // 1. Comprobar si hay errores de validación (de la ruta)
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -61,25 +62,22 @@ export const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // 2. Buscar al usuario por su email
     let user = await User.findOne({ email });
     if (!user) {
-      // ¡No decimos "email no encontrado"! Por seguridad, es un error genérico.
       return res.status(400).json({ msg: 'Credenciales no válidas' });
     }
 
-    // 3. Comparar la contraseña que nos envían con la encriptada en la BD
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      // ¡No decimos "contraseña incorrecta"! Mismo error genérico.
       return res.status(400).json({ msg: 'Credenciales no válidas' });
     }
 
-    // 4. Si todo es correcto, crear y firmar el "pase digital" (JWT)
     const payload = {
       user: {
         id: user.id,
-        role: user.role, // Aquí irá 'client' o 'admin'
+        role: user.role,
+        name: user.name,
+        email: user.email, // <-- ¡AÑADIDO EMAIL AQUÍ!
       },
     };
 
@@ -89,7 +87,57 @@ export const login = async (req, res) => {
       { expiresIn: '5h' },
       (err, token) => {
         if (err) throw err;
-        res.json({ token }); // Devolvemos el pase
+        res.json({ token });
+      }
+    );
+
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Error del servidor');
+  }
+};
+
+// 3. UPDATE PROFILE
+export const updateProfile = async (req, res) => {
+  const { name, currentPassword, newPassword } = req.body;
+  
+  try {
+    let user = await User.findById(req.user.id);
+
+    if (!user) return res.status(404).json({ msg: 'Usuario no encontrado' });
+
+    if (name) user.name = name;
+
+    if (newPassword) {
+      if (!currentPassword) {
+        return res.status(400).json({ msg: 'Debes introducir tu contraseña actual para cambiarla' });
+      }
+      const isMatch = await bcrypt.compare(currentPassword, user.password);
+      if (!isMatch) {
+        return res.status(400).json({ msg: 'La contraseña actual es incorrecta' });
+      }
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(newPassword, salt);
+    }
+
+    await user.save();
+
+    const payload = {
+      user: {
+        id: user.id,
+        role: user.role,
+        name: user.name,
+        email: user.email, // <-- ¡AÑADIDO EMAIL AQUÍ!
+      },
+    };
+
+    jwt.sign(
+      payload,
+      process.env.JWT_SECRET,
+      { expiresIn: '5h' },
+      (err, token) => {
+        if (err) throw err;
+        res.json({ token, msg: 'Perfil actualizado correctamente' });
       }
     );
 

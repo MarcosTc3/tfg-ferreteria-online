@@ -2,11 +2,11 @@
 
 import { Router } from 'express';
 import { body } from 'express-validator';
-import { register, login } from '../controllers/auth.controller.js'; // <-- 1. IMPORTAR LOGIN
+import { register, login, updateProfile } from '../controllers/auth.controller.js'; // Importar updateProfile
+import { auth } from '../middleware/auth.middleware.js';
 
 const router = Router();
 
-// --- RUTA DE REGISTRO (la que ya tenías) ---
 router.post(
   '/register',
   [
@@ -25,15 +25,16 @@ router.post(
   register
 );
 
-// --- NUEVA RUTA DE LOGIN ---
 router.post(
   '/login',
   [
-    // Validamos que nos envíen un email y una contraseña
     body('email', 'Por favor, incluye un email válido').isEmail(),
     body('password', 'La contraseña es obligatoria').not().isEmpty(),
   ],
-  login // <-- 2. USAR LA FUNCIÓN LOGIN
+  login
 );
+
+// --- NUEVA RUTA ---
+router.put('/update', auth, updateProfile);
 
 export default router;

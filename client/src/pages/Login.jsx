@@ -1,7 +1,7 @@
 // src/pages/Login.jsx
 
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './AuthForm.css';
 import { useAuth } from '../context/AuthContext';
@@ -14,7 +14,11 @@ function Login() {
   
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation(); // Para leer de dónde venía
   const { login } = useAuth();
+
+  // Recuperamos la ruta previa o por defecto vamos a la tienda
+  const from = location.state?.from?.pathname || '/tienda';
 
   const { email, password } = formData;
 
@@ -31,19 +35,16 @@ function Login() {
 
       const token = res.data.token;
       
-      // 1. Iniciamos sesión en el contexto
       login(token); 
 
-      // 2. Decodificamos el token AQUÍ para ver qué rol tiene el usuario
-      // (El token tiene 3 partes separadas por puntos. La segunda es la información)
       const payload = JSON.parse(atob(token.split('.')[1]));
       const userRole = payload.user.role;
 
-      // 3. Redirigimos según el rol
       if (userRole === 'admin') {
-        navigate('/admin'); // Si es Admin, al panel de control
+        navigate('/admin');
       } else {
-        navigate('/tienda'); // Si es Cliente, a la tienda
+        // Redirigir a donde estaba el usuario
+        navigate(from, { replace: true });
       }
 
     } catch (err) {
