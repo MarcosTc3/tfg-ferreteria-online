@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import AdminLayout from '../layouts/AdminLayout';
+import { FaImage, FaEdit, FaTrash, FaTimes } from 'react-icons/fa'; // Iconos nuevos
 import './AdminProducts.css';
 
 function AdminProducts() {
@@ -12,20 +13,25 @@ function AdminProducts() {
   const [error, setError] = useState('');
   const { token } = useAuth();
 
-  // Estado para el formulario de nuevo producto
-  const [newProduct, setNewProduct] = useState({
+  // Estados para la galería
+  const [showGallery, setShowGallery] = useState(false);
+  const [availableImages, setAvailableImages] = useState([]);
+
+  // Estado del formulario
+  const [productForm, setProductForm] = useState({
     name: '',
     description: '',
     price: '',
-    category: 'Herramientas Manuales', // Valor por defecto
+    category: 'Herramientas Manuales',
     image: '',
     stock: 10
   });
 
-  // 1. Cargar productos al entrar
+  // --- NUEVO ESTADO: MODO EDICIÓN ---
+  const [editingId, setEditingId] = useState(null); // Si es null, estamos creando. Si tiene ID, estamos editando.
+
   const fetchProducts = async () => {
     try {
-      // Nota: Esta ruta es pública, no necesita token, pero la usamos dentro del admin
       const res = await axios.get('http://localhost:5000/api/products');
       setProducts(res.data);
     } catch (err) {
@@ -40,27 +46,36 @@ function AdminProducts() {
     fetchProducts();
   }, []);
 
-  // 2. Manejar cambios en el formulario
+  // Manejar cambios en los inputs
   const handleInputChange = (e) => {
-    setNewProduct({ ...newProduct, [e.target.name]: e.target.value });
+    setProductForm({ ...productForm, [e.target.name]: e.target.value });
   };
 
-  // 3. Crear Producto
-  const handleCreateProduct = async (e) => {
+  // --- FUNCIÓN UNIFICADA: CREAR O ACTUALIZAR ---
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!token) return;
 
     try {
       const config = { headers: { 'x-auth-token': token } };
-      
-      // Enviamos los datos al backend
-      const res = await axios.post('http://localhost:5000/api/products', newProduct, config);
 
-      // Añadimos el nuevo producto a la lista visualmente
-      setProducts([res.data, ...products]);
-      
-      // Limpiamos el formulario
-      setNewProduct({
+      if (editingId) {
+        // --- MODO ACTUALIZAR (PUT) ---
+        const res = await axios.put(`http://localhost:5000/api/products/${editingId}`, productForm, config);
+        
+        // Actualizamos la lista localmente
+        setProducts(products.map(p => (p._id === editingId ? res.data : p)));
+        
+        // Salimos del modo edición
+        setEditingId(null);
+      } else {
+        // --- MODO CREAR (POST) ---
+        const res = await axios.post('http://localhost:5000/api/products', productForm, config);
+        setProducts([res.data, ...products]);
+      }
+
+      // Limpiamos el formulario en ambos casos
+      setProductForm({
         name: '',
         description: '',
         price: '',
@@ -68,52 +83,96 @@ function AdminProducts() {
         image: '',
         stock: 10
       });
-      
-      alert('Producto creado correctamente');
 
     } catch (err) {
       console.error(err);
-      alert('Error al crear el producto. Revisa los datos.');
+      alert('Error al guardar el producto.');
     }
   };
 
-  // 4. Borrar Producto
+  // --- FUNCIÓN PARA ACTIVAR EDICIÓN ---
+  const startEditing = (product) => {
+    // Rellenamos el formulario con los datos del producto seleccionado
+    setProductForm({
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      category: product.category,
+      image: product.image,
+      stock: product.stock
+    });
+    setEditingId(product._id); // Activamos modo edición
+    
+    // Hacemos scroll hacia arriba para ver el formulario
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // FUNCIÓN PARA CANCELAR EDICIÓN
+  const cancelEditing = () => {
+    setEditingId(null);
+    setProductForm({
+      name: '',
+      description: '',
+      price: '',
+      category: 'Herramientas Manuales',
+      image: '',
+      stock: 10
+    });
+  };
+
+  // Borrar producto
   const handleDeleteProduct = async (id) => {
     if(!window.confirm('¿Estás seguro de que quieres eliminar este producto?')) return;
-
     try {
       const config = { headers: { 'x-auth-token': token } };
       await axios.delete(`http://localhost:5000/api/products/${id}`, config);
-
-      // Lo quitamos de la lista visualmente
       setProducts(products.filter(p => p._id !== id));
-
     } catch (err) {
-      console.error(err);
       alert('Error al eliminar el producto');
     }
   };
 
-  if (loading) return <AdminLayout><div style={{padding:'4rem', textAlign:'center'}}>Cargando productos...</div></AdminLayout>;
+  // Galería de imágenes
+  const handleOpenGallery = async () => {
+    try {
+      const res = await axios.get('http://localhost:5000/api/images');
+      setAvailableImages(res.data);
+      setShowGallery(true);
+    } catch (err) { alert('Error al cargar galería'); }
+  };
+
+  const selectImage = (fileName) => {
+    setProductForm({ ...productForm, image: `/products/${fileName}` });
+    setShowGallery(false);
+  };
+
+  if (loading) return <AdminLayout><div style={{padding:'4rem', textAlign:'center'}}>Cargando...</div></AdminLayout>;
 
   return (
     <AdminLayout>
       <div className="admin-products-container">
         <h1>Gestión de Productos</h1>
 
-        {/* --- FORMULARIO DE CREACIÓN --- */}
-        <div className="create-product-form">
-          <h2>Añadir Nuevo Producto</h2>
-          <form onSubmit={handleCreateProduct}>
+        <div className="create-product-form" style={editingId ? {border:'2px solid #ffc107'} : {}}>
+          <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+            <h2>{editingId ? 'Editar Producto' : 'Añadir Nuevo Producto'}</h2>
+            {editingId && (
+              <button type="button" onClick={cancelEditing} className="cancel-edit-btn">
+                <FaTimes /> Cancelar Edición
+              </button>
+            )}
+          </div>
+
+          <form onSubmit={handleSubmit}>
             <div className="form-row">
-              <input type="text" name="name" placeholder="Nombre del producto" value={newProduct.name} onChange={handleInputChange} required />
-              <input type="number" name="price" placeholder="Precio (€)" value={newProduct.price} onChange={handleInputChange} required />
+              <input type="text" name="name" placeholder="Nombre" value={productForm.name} onChange={handleInputChange} required />
+              <input type="number" name="price" placeholder="Precio (€)" value={productForm.price} onChange={handleInputChange} required />
             </div>
             
-            <textarea name="description" placeholder="Descripción del producto" value={newProduct.description} onChange={handleInputChange} required rows="3"></textarea>
+            <textarea name="description" placeholder="Descripción" value={productForm.description} onChange={handleInputChange} required rows="3"></textarea>
             
             <div className="form-row">
-              <select name="category" value={newProduct.category} onChange={handleInputChange}>
+              <select name="category" value={productForm.category} onChange={handleInputChange}>
                 <option value="Herramientas Eléctricas">Herramientas Eléctricas</option>
                 <option value="Herramientas Manuales">Herramientas Manuales</option>
                 <option value="Tornillería">Tornillería</option>
@@ -122,19 +181,21 @@ function AdminProducts() {
                 <option value="Hogar">Hogar</option>
                 <option value="Otros">Otros</option>
               </select>
-              <input type="number" name="stock" placeholder="Stock" value={newProduct.stock} onChange={handleInputChange} required />
+              <input type="number" name="stock" placeholder="Stock" value={productForm.stock} onChange={handleInputChange} required />
             </div>
 
-            <input type="text" name="image" placeholder="URL de la imagen (ej: /products/taladro.jpg)" value={newProduct.image} onChange={handleInputChange} required />
-            <small style={{display:'block', marginBottom:'1rem', color:'#666'}}>
-              * Usa una ruta local como <b>/products/nombre-foto.jpg</b> (asegúrate de que la foto esté en la carpeta public/products) o una URL de internet.
-            </small>
-
-            <button type="submit" className="create-btn">Crear Producto</button>
+            <label style={{fontWeight:'bold', display:'block', marginBottom:'0.5rem'}}>Imagen:</label>
+            <div className="input-group">
+              <input type="text" name="image" placeholder="Ruta imagen" value={productForm.image} onChange={handleInputChange} required />
+              <button type="button" onClick={handleOpenGallery} className="gallery-btn"><FaImage/> Galería</button>
+            </div>
+            
+            <button type="submit" className={`create-btn ${editingId ? 'update-btn' : ''}`}>
+              {editingId ? 'Actualizar Producto' : 'Crear Producto'}
+            </button>
           </form>
         </div>
 
-        {/* --- TABLA DE PRODUCTOS --- */}
         <h2>Inventario Actual ({products.length})</h2>
         <div style={{overflowX: 'auto'}}>
           <table className="products-table">
@@ -142,7 +203,6 @@ function AdminProducts() {
               <tr>
                 <th>Img</th>
                 <th>Nombre</th>
-                <th>Categoría</th>
                 <th>Precio</th>
                 <th>Stock</th>
                 <th>Acciones</th>
@@ -150,21 +210,27 @@ function AdminProducts() {
             </thead>
             <tbody>
               {products.map((product) => (
-                <tr key={product._id}>
-                  <td>
-                    <img src={product.image} alt={product.name} className="table-img" />
-                  </td>
+                <tr key={product._id} className={editingId === product._id ? 'editing-row' : ''}>
+                  <td><img src={product.image} alt={product.name} className="table-img" /></td>
                   <td>
                     <strong>{product.name}</strong>
-                    <p style={{fontSize:'0.8rem', color:'#666', margin:0}}>{product.description.substring(0, 50)}...</p>
+                    <div style={{fontSize:'0.8rem', color:'#666'}}>{product.category}</div>
                   </td>
-                  <td>{product.category}</td>
                   <td>{product.price} €</td>
-                  <td>{product.stock}</td>
+                  <td style={{fontWeight:'bold', color: product.stock < 5 ? 'red' : 'green'}}>
+                    {product.stock} u.
+                  </td>
                   <td>
-                    <button onClick={() => handleDeleteProduct(product._id)} className="delete-btn">
-                      Eliminar
-                    </button>
+                    <div style={{display:'flex', gap:'10px'}}>
+                      {/* BOTÓN EDITAR */}
+                      <button onClick={() => startEditing(product)} className="edit-btn" title="Editar">
+                        <FaEdit />
+                      </button>
+                      {/* BOTÓN ELIMINAR */}
+                      <button onClick={() => handleDeleteProduct(product._id)} className="delete-btn" title="Eliminar">
+                        <FaTrash />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -172,6 +238,24 @@ function AdminProducts() {
           </table>
         </div>
       </div>
+
+      {/* MODAL GALERÍA (Igual que antes) */}
+      {showGallery && (
+        <div className="gallery-modal-overlay">
+          <div className="gallery-modal">
+            <button onClick={() => setShowGallery(false)} className="close-modal-btn"><FaTimes/></button>
+            <h2 style={{marginTop:0}}>Selecciona una imagen</h2>
+            <div className="gallery-grid">
+              {availableImages.map((imgName, index) => (
+                <div key={index} className="gallery-item" onClick={() => selectImage(imgName)}>
+                  <img src={`/products/${imgName}`} alt={imgName} />
+                  <p>{imgName}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </AdminLayout>
   );
 }

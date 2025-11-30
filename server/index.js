@@ -5,11 +5,11 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
-// Importar rutas
 import authRoutes from './routes/auth.routes.js';
 import contactRoutes from './routes/contact.routes.js';
 import orderRoutes from './routes/order.routes.js';
-import productRoutes from './routes/product.routes.js'; // <-- 1. IMPORTAR
+import productRoutes from './routes/product.routes.js';
+import imageRoutes from './routes/images.routes.js'; // <-- 1. IMPORTAR
 
 dotenv.config(); 
 const app = express();
@@ -23,13 +23,12 @@ app.get('/', (req, res) => {
   res.send('¡El servidor de la Ferretería está funcionando!');
 });
 
-// Usar rutas
 app.use('/api/auth', authRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/orders', orderRoutes);
-app.use('/api/products', productRoutes); // <-- 2. USAR RUTA DE PRODUCTOS
+app.use('/api/products', productRoutes);
+app.use('/api/images', imageRoutes); // <-- 2. USAR RUTA
 
-// Conexión a BD y arranque
 console.log("Conectando a MongoDB...");
 mongoose.connect(MONGO_URI)
   .then(() => {

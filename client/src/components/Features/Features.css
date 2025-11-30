@@ -1,0 +1,50 @@
+/* src/components/Features/Features.css */
+
+.features-section {
+  background-color: #f8f9fa;
+  padding: 3rem 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.features-grid {
+  display: grid;
+  /* Esto hace magia: crea tantas columnas como quepan de mínimo 220px */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: white; /* Tarjetas blancas para resaltar */
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+  transition: transform 0.3s;
+}
+
+.feature-item:hover {
+  transform: translateY(-3px);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  color: #004a99;
+  flex-shrink: 0; /* Evita que el icono se aplaste */
+}
+
+.feature-text h4 {
+  margin: 0 0 0.3rem 0;
+  color: #333;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.feature-text p {
+  margin: 0;
+  color: #666;
+  font-size: 0.85rem;
+}

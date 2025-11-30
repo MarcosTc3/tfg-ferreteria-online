@@ -59,9 +59,11 @@ function Pedidos() {
                   </td>
                   <td className="order-total">{order.totalPrice.toFixed(2)} €</td>
                   <td>
-                    {/* Estado visual con colores */}
-                    <span className={`status-select ${order.orderStatus.replace(' ', '.')}`} 
-                          style={{ display:'inline-block', border:'1px solid', padding:'5px 10px', borderRadius:'5px' }}>
+                    {/* AQUÍ TAMBIÉN: Usamos guion (-) para la clase CSS */}
+                    <span 
+                      className={`status-select ${order.orderStatus.replace(/\s+/g, '-')}`} 
+                      style={{ display:'inline-block', border:'1px solid', padding:'5px 10px', borderRadius:'5px' }}
+                    >
                       {order.orderStatus}
                     </span>
                   </td>

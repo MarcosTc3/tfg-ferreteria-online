@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
-import AdminLayout from '../layouts/AdminLayout'; // <-- Importamos el Layout
+import AdminLayout from '../layouts/AdminLayout';
 import './AdminOrders.css';
 
 function AdminOrders() {
@@ -114,7 +114,8 @@ function AdminOrders() {
                   <td>
                     <select 
                       value={order.orderStatus}
-                      className={`status-select ${order.orderStatus.replace(' ', '.')}`}
+                      // AQUÍ ESTÁ EL CAMBIO: Usamos guion (-) para reemplazar espacios
+                      className={`status-select ${order.orderStatus.replace(/\s+/g, '-')}`}
                       onChange={(e) => handleStatusChange(order._id, e.target.value)}
                     >
                       <option value="Pendiente">Pendiente</option>

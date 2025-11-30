@@ -30,62 +30,50 @@
   font-weight: bold;
 }
 
-.order-user-info {
-  font-weight: bold;
-  font-size: 0.9rem;
-}
+.order-user-info { font-weight: bold; font-size: 0.9rem; }
+.order-user-email { color: #555; font-size: 0.85rem; }
+.order-items-list { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; }
+.order-total { font-weight: bold; color: #333; }
 
-.order-user-email {
-  color: #555;
-  font-size: 0.85rem;
-}
-
-.order-items-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-size: 0.9rem;
-}
-
-.order-total {
-  font-weight: bold;
-  color: #333;
-}
-
+/* Estilos base del select */
 .status-select {
-  padding: 8px;
+  padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-weight: bold;
-  color: #333; /* Texto oscuro para legibilidad */
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  width: 100%;
+  max-width: 150px;
+  color: #333; /* Color base oscuro */
 }
 
-/* --- COLORES ACTUALIZADOS --- */
+/* --- COLORES DEFINITIVOS (CON GUIONES) --- */
 
-/* Pendiente (Naranja) */
+/* 1. Pendiente (Naranja) */
 .status-select.Pendiente {
-  border-color: #ffc107;
-  background-color: #fff3cd;
-  color: #856404;
+  background-color: #fff3cd !important;
+  color: #856404 !important;
+  border-color: #ffeeba;
 }
 
-/* En Camino (Azul) */
-.status-select.En.Camino {
-  border-color: #007bff;
-  background-color: #cce5ff;
-  color: #004085;
+/* 2. En Camino (Azul) */
+.status-select.En-Camino {
+  background-color: #d1ecf1 !important;
+  color: #0c5460 !important;
+  border-color: #bee5eb;
 }
 
-/* Entregado (Verde) */
+/* 3. Entregado (Verde) */
 .status-select.Entregado {
-  border-color: #28a745;
-  background-color: #d4edda;
-  color: #155724;
+  background-color: #d4edda !important;
+  color: #155724 !important;
+  border-color: #c3e6cb;
 }
 
-/* Cancelado (Rojo) */
+/* 4. Cancelado (Rojo) */
 .status-select.Cancelado {
-  border-color: #dc3545;
-  background-color: #f8d7da;
-  color: #721c24;
+  background-color: #f8d7da !important;
+  color: #721c24 !important;
+  border-color: #f5c6cb;
 }

@@ -9,13 +9,13 @@ function Footer() {
     <footer className="site-footer">
       <div className="container">
         <div className="footer-content">
-          {/* Columna 1: Tienda y Exposición */}
+          {/* Columna 1 */}
           <div className="footer-column">
             <h4><FaMapMarkerAlt /> Tienda y Exposición</h4>
             <ul className="footer-info-list">
               <li>Plaza Valdeserrano, 9, 28945 Fuenlabrada, Madrid</li>
-              <li><FaPhone /> 91 607 77 77 (Ejemplo)</li>
-              <li><FaEnvelope /> info@ferreteriaelarroyo.com (Ejemplo)</li>
+              <li><FaPhone /> 916 90 38 60</li>
+              <li><FaEnvelope /> info@ferreteriaelarroyo.com</li>
               <li>
                 <FaClock />
                 <div className="horario-footer">
@@ -26,14 +26,14 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Columna 2: Sobre Nosotros */}
+          {/* Columna 2 */}
           <div className="footer-column">
             <h4>Ferretería El Arroyo</h4>
             <p>Tu ferretería de confianza y suministros industriales en Fuenlabrada desde 1980.</p>
             <p>Formamos parte de la red de tiendas <strong>Ferrokey</strong>.</p>
           </div>
 
-          {/* Columna 3: Síguenos */}
+          {/* Columna 3 */}
           <div className="footer-column">
             <h4>Síguenos</h4>
             <div className="social-icons">

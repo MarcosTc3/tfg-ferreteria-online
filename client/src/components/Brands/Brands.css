@@ -1,0 +1,52 @@
+/* src/components/Brands/Brands.css */
+
+.brands-section {
+  padding: 4rem 1rem;
+  border-top: 1px solid #f0f0f0;
+  background-color: #fff;
+}
+
+.brands-title {
+  text-align: center;
+  color: #999;
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.brands-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* Importante para móvil */
+  gap: 3rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.brand-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.8rem;
+  color: #ccc; /* Gris claro inicial */
+  font-weight: bold;
+  transition: all 0.3s;
+  cursor: default;
+}
+
+.brand-item:hover {
+  color: #555; /* Se oscurece al pasar el ratón */
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .brands-container {
+    gap: 2rem;
+  }
+  .brand-item {
+    font-size: 1.4rem;
+  }
+}

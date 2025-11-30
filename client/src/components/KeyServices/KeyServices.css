@@ -1,43 +1,84 @@
+/* src/components/KeyServices/KeyServices.css */
+
 .keyservices-section {
-  padding: 3rem 0;
-  background-color: #ffffff; /* Lo cambiamos a blanco para que contraste con el fondo general */
+  padding: 5rem 1rem;
+  background-color: #ffffff;
 }
 
-/* ---- ESTILOS PARA ORDENADOR (VISTA HORIZONTAL) ---- */
-.keyservices-section .container {
-  display: flex; /* Esto pone los elementos en línea */
-  justify-content: center; /* Los centra en el espacio */
-  gap: 3rem; /* Espacio entre los círculos */
+.keyservices-header {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #333;
+  margin-bottom: 3rem;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
-.service-item {
+.services-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.service-card-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  max-width: 200px; /* Añadimos un ancho máximo para que el texto no se expanda demasiado */
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 2.5rem 1.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.03);
 }
 
-.service-icon-circle {
-  width: 120px;
-  height: 120px;
+/* Efecto hover elegante: sube y sombra */
+.service-card-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  border-color: #e3001b; /* Borde rojo al pasar ratón */
+}
+
+.service-icon-box {
+  width: 80px;
+  height: 80px;
+  background-color: #f4f4f4; /* Fondo gris claro para el icono */
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: #004a99; /* Icono azul */
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.service-card-item:hover .service-icon-box {
   background-color: #004a99;
-  margin-bottom: 1rem;
+  color: white;
 }
 
-.service-title {
-  font-size: 1rem;
+.service-content h3 {
+  font-size: 1.4rem;
   color: #333;
-  font-weight: bold;
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
 }
 
-/* ---- ESTILOS PARA MÓVILES Y TABLETS (VISTA VERTICAL) ---- */
-/* Esta regla se aplica solo si el ancho de la pantalla es de 768px o menos */
-@media (max-width: 768px) {
-  .keyservices-section .container {
-    flex-direction: column; /* Apila los elementos verticalmente */
-    align-items: center;   /* Los centra */
-    gap: 2rem;
-  }
+.service-content p {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.service-link {
+  color: #e3001b;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-transform: uppercase;
 }

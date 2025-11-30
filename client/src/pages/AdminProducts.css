@@ -96,3 +96,128 @@
 @media (max-width: 768px) {
   .form-row { flex-direction: column; gap: 0.5rem; }
 }
+
+.input-group {
+  display: flex;
+  gap: 10px;
+}
+
+.gallery-btn {
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  padding: 0 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.gallery-btn:hover { background-color: #138496; }
+
+/* MODAL DE GALERÍA */
+.gallery-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.gallery-modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 800px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.gallery-item {
+  border: 2px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.gallery-item:hover {
+  border-color: #004a99;
+  transform: scale(1.05);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100px;
+  object-fit: contain;
+  display: block;
+}
+
+.gallery-item p {
+  text-align: center;
+  font-size: 0.8rem;
+  margin: 0.5rem 0;
+  word-break: break-all;
+}
+
+.close-modal-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+.edit-btn {
+  background-color: #ffc107; /* Amarillo/Naranja */
+  color: #333;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.edit-btn:hover {
+  background-color: #e0a800;
+}
+
+.update-btn {
+  background-color: #007bff; /* Azul para actualizar */
+}
+.update-btn:hover {
+  background-color: #0069d9;
+}
+
+.cancel-edit-btn {
+  background-color: transparent;
+  color: #dc3545;
+  border: 1px solid #dc3545;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.cancel-edit-btn:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Resaltar la fila que se está editando */
+.editing-row {
+  background-color: #fff3cd !important;
+}
