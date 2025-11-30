@@ -1,0 +1,98 @@
+/* src/pages/AdminProducts.css */
+
+.admin-products-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.create-product-form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  margin-bottom: 3rem;
+  border: 1px solid #e0e0e0;
+}
+
+.create-product-form h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.create-product-form input,
+.create-product-form select,
+.create-product-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.create-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.create-btn:hover { background-color: #218838; }
+
+/* TABLA */
+.products-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.products-table th, 
+.products-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.products-table th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+  color: #333;
+}
+
+.table-img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border: 1px solid #eee;
+  border-radius: 4px;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.delete-btn:hover { background-color: #c82333; }
+
+@media (max-width: 768px) {
+  .form-row { flex-direction: column; gap: 0.5rem; }
+}

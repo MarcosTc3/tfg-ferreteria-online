@@ -22,10 +22,10 @@ import Carrito from './pages/Carrito';
 import FinalizarCompra from './pages/FinalizarCompra';
 import Perfil from './pages/Perfil';
 import Pedidos from './pages/Pedidos';
-import ClientMessages from './pages/ClientMessages'; // <-- 1. IMPORTAR
 
 import AdminMessages from './pages/AdminMessages';
 import AdminOrders from './pages/AdminOrders';
+import AdminProducts from './pages/AdminProducts'; // <-- 1. IMPORTAR
 
 function App() {
   const location = useLocation();
@@ -37,7 +37,6 @@ function App() {
       
       <main className={isAdminRoute ? 'admin-main' : ''}>
         <Routes>
-          {/* RUTAS PÚBLICAS */}
           <Route path="/" element={<Inicio />} />
           <Route path="/tienda" element={<Tienda />} />
           <Route path="/servicios" element={<Servicios />} />
@@ -48,22 +47,17 @@ function App() {
           <Route path="/registro" element={<Registro />} />
           <Route path="/login" element={<Login />} />
 
-          {/* RUTAS CLIENTE */}
           <Route path="/carrito" element={<ProtectedRoute><Carrito /></ProtectedRoute>} />
           <Route path="/finalizar-compra" element={<ProtectedRoute><FinalizarCompra /></ProtectedRoute>} />
           <Route path="/perfil" element={<ProtectedRoute><Perfil /></ProtectedRoute>} />
           <Route path="/pedidos" element={<ProtectedRoute><Pedidos /></ProtectedRoute>} />
           
-          {/* 2. AÑADIR RUTA DE MENSAJES DE CLIENTE */}
-          <Route 
-            path="/mis-mensajes" 
-            element={<ProtectedRoute><ClientMessages /></ProtectedRoute>} 
-          />
-          
           {/* RUTAS ADMIN */}
           <Route path="/admin" element={<AdminRoute><AdminMessages /></AdminRoute>} />
           <Route path="/admin/mensajes" element={<AdminRoute><AdminMessages /></AdminRoute>} />
           <Route path="/admin/pedidos" element={<AdminRoute><AdminOrders /></AdminRoute>} />
+          {/* 2. NUEVA RUTA DE PRODUCTOS */}
+          <Route path="/admin/productos" element={<AdminRoute><AdminProducts /></AdminRoute>} />
 
         </Routes>
       </main>

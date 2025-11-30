@@ -2,7 +2,7 @@
 
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { FaBoxOpen, FaEnvelope, FaSignOutAlt } from 'react-icons/fa';
+import { FaBoxOpen, FaEnvelope, FaSignOutAlt, FaTools } from 'react-icons/fa'; // <-- Importamos FaTools
 import './AdminSidebar.css';
 
 function AdminSidebar() {
@@ -22,7 +22,6 @@ function AdminSidebar() {
       
       <nav className="admin-sidebar-nav">
         <ul>
-          {/* 1. Texto limpio: solo "Mensajes" */}
           <li>
             <NavLink to="/admin" end className={({ isActive }) => isActive ? "active" : ""}>
               <FaEnvelope className="icon" /> Mensajes
@@ -34,6 +33,14 @@ function AdminSidebar() {
               <FaBoxOpen className="icon" /> Pedidos
             </NavLink>
           </li>
+
+          {/* --- NUEVO ENLACE --- */}
+          <li>
+            <NavLink to="/admin/productos" className={({ isActive }) => isActive ? "active" : ""}>
+              <FaTools className="icon" /> Productos
+            </NavLink>
+          </li>
+
         </ul>
       </nav>
 
